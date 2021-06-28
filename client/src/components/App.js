@@ -42,6 +42,7 @@ const App = () => {
         <AuthRoute path='/dashboard' component={Dashboard} />
         <AuthRoute exact path='/login' component={Login} routeType={'auth'} />
         
+        
         {/* <AuthRoute exact path='/register' component={Register} routeType={'auth'} /> */}
         {/* <AuthRoute path={'/view/tag/:tagTitle'} component={TagFeed} />
         <AuthRoute path={'/view/blog/:blogName'} component={UserBlogShow} />
