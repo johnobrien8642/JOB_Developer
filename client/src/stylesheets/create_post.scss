@@ -1,0 +1,35 @@
+.dashboard {
+  width: 900px;
+  margin: 0 auto;
+
+  .logout {
+    font-size: 22px;
+    margin: 50px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .postsNavContainer {
+    background-color: red;
+    width: fit-content;
+    margin: 10px auto;
+
+    .postsNav {
+      display: flex;
+      flex-direction: row;
+
+      .postIconContainer {
+        margin: 0 50px;
+
+        .postIcon {
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

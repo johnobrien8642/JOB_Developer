@@ -121,10 +121,6 @@ const TextPostForm = ({
     ]).then(
       ([bodyUploads]) => {
 
-        var mentions = handleMentions(body, stripAllImgs)
-        
-        discardMentions(post, mentions, objsToClean)
-
         var descriptions = stripAllImgs(body)
 
         handleAllTextTextPost(allText, descriptions, title)
@@ -136,9 +132,8 @@ const TextPostForm = ({
           allText: allText.current,
           descriptions: descriptions,
           descriptionImages: handleUploadedFiles(body, bodyUploads),
-          mentions: mentions,
           user: Cookies.get('currentUser'),
-          tags, kind: 'TextPost',
+           kind: 'TextPost',
           objsToClean: objsToClean.current,
           postId: post ? post._id : null
         }
@@ -155,16 +150,6 @@ const TextPostForm = ({
   const disabledBool = () => {
     return !title && body.current.length === 0 && !description
   }
-
-  const handleTextPostFormClass = () => {
-    if ((textPostActive && !uploading) || update) {
-      return 'postForm textPostForm active'
-    } else if ((textPostActive && uploading) || uploading) {
-      return 'postForm textPostForm hidden'
-    } else {
-      return 'postForm textPostForm none'
-    }
-  }
   
   
   if (textPostActive || update) {
@@ -173,10 +158,8 @@ const TextPostForm = ({
       className={update ? 'postFormContainer update' : 'postFormContainer'}
     >
 
-      <ProfilePic user={update ? post.user : user} />
-
       <div
-        className={handleTextPostFormClass()}
+        className={'postform textPostForm'}
       >
         <form
           id={formId}
@@ -184,10 +167,6 @@ const TextPostForm = ({
           onKeyPress={e => { e.key === 'Enter' && e.preventDefault() }}
           encType={'multipart/form-data'}
         >
-
-        <h3
-          className='userNameHeader'
-        >{update ? post.user.blogName : user.blogName}</h3>
   
         <TextPostInput
           post={post}
@@ -216,59 +195,11 @@ const TextPostForm = ({
           errMessage={errMessage}
           setErrMessage={setErrMessage}
         />
-  
-        <Tags
-          post={post}
-          tag={tag}
-          setTag={setTag}
-          tags={tags}
-          setTags={setTags}
-        />
 
           <div
             className='closeOrPostContainer'
           >
-            <div
-              className={'closeBtn'}
-              onClick={() => {
-                if (disabledBool()) {
-                  allowScroll(document)
-                  resetInputs()
-                  
-                  if (!update) {
-                    setTextPostActive(textPostActive = false)
-                    setPostFormModal(postFormModal = false)
-                  } else {
-                    setUpdate(update = false)
-                  }
 
-                  if (mobile) {
-                    setPostFormOpen(postFormOpen = false)
-                  }
-                } else  {
-                  setConfirmClose(confirmClose = true)
-                }
-              }}
-            >
-              Close
-            </div>
-
-            <ConfirmClose
-              mobile={mobile}
-              update={update}
-              setUpdate={setUpdate}
-              confirmClose={confirmClose}
-              setConfirmClose={setConfirmClose}
-              allowScroll={allowScroll}
-              resetInputs={resetInputs}
-              setFormActive={setTextPostActive}
-              formActive={textPostActive}
-              setPostFormModal={setPostFormModal}
-              postFormModal={postFormModal}
-              postFormOpen={postFormOpen}
-              setPostFormOpen={setPostFormOpen}
-            />
-            
             <button
               type='submit'
               className={disabledBool() ? 'formSubmitBtn disabled' : 'formSubmitBtn'}
@@ -290,19 +221,6 @@ const TextPostForm = ({
                 
                   setDescription(description = '')
                 }
-                
-                if (tag) {
-                  handleTagInput(
-                    tag, setTag,
-                    tags, setTags
-                  )
-                }
-                
-                if (!update) {
-                  setPostFormModal(postFormModal = false)
-                }
- 
-                setUploading(uploading = true)
               }}
             >
               {post ? 'Update' : 'Post'}
