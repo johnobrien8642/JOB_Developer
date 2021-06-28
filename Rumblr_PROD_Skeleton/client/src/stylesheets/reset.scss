@@ -12,6 +12,11 @@ nav, text {
 	vertical-align: baseline;
   text-decoration: none;
   list-style-type: none;
+	font-family: inherit;
+
+	&:hover {
+		cursor: default;
+	}
 }
 
 div:focus,

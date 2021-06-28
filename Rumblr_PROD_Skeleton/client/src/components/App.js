@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Redirect } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 
 import Nav from '../components/nav/Nav';
 import Dashboard from './dashboard/Dashboard';
@@ -13,6 +13,7 @@ import UserFollowersOrFollowingOrActivityFeed from './feeds/User_Followers_Or_Fo
 import UserSettings from './user/User_Settings';
 import Discover from './nav/Discover';
 import AuthRoute from '../util/route_util';
+import LandingPage from './sections/Landing_Page';
 // uncomment below for email auth welcome page
 // import WelcomePage from './auth/Welcome_Page';
 
@@ -34,10 +35,15 @@ const App = () => {
 
   return (
     <React.Fragment>
-      <Nav />
       <Switch>
+        {/* <Redirect from='/' to='/dashboard' /> */}
+        <Route exact path='/' component={LandingPage} />
+
+        <AuthRoute exact path='/register' component={Register} routeType={'auth'} />
+        <AuthRoute exact path='/login' component={Login} routeType={'auth'} />
         <AuthRoute path={['/dashboard', '/likes']} component={Dashboard} />
-        <AuthRoute path={'/view/tag/:tagTitle'} component={TagFeed} />
+        
+        {/* <AuthRoute path={'/view/tag/:tagTitle'} component={TagFeed} />
         <AuthRoute path={'/view/blog/:blogName'} component={UserBlogShow} />
         <AuthRoute exact path={'/settings/account'} component={UserSettings} />
         <AuthRoute exact path='/blog/view/:blogName/:postId' component={UserPostShow} />
@@ -46,12 +52,10 @@ const App = () => {
           component={UserFollowersOrFollowingOrActivityFeed} 
         />
         <AuthRoute exact path='/discover' component={Discover} />
-        <AuthRoute exact path='/likes' component={UserPostLikesFeed} />
+        <AuthRoute exact path='/likes' component={UserPostLikesFeed} /> */}
+
         {/* uncomment below for email auth welcome page */}
         {/* <AuthRoute exact path='/welcome' component={WelcomePage} /> */}
-        <AuthRoute exact path='/register' component={Register} routeType={'auth'} />
-        <AuthRoute exact path='/login' component={Login} routeType={'auth'} />
-        <Redirect from='/' to='/dashboard' />
       </Switch>
     </React.Fragment>
   );

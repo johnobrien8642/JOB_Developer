@@ -1,0 +1,150 @@
+.contactContainer {
+  margin: 120px auto;
+  height: fit-content;
+  min-width: 550px;
+  
+
+  h1 {
+    margin: 50px auto 20px auto;
+    font-size: 35px;
+    font-weight: 600;
+    width: fit-content;
+  }
+
+  .emailAndPhoneContainer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 80%;
+    margin: 40px auto 150px auto;
+    
+
+    .emailContainer,
+    .phoneContainer {
+      h2 {
+        font-size: 20px;
+        font-weight: 500;
+        width: fit-content;
+        margin: 0 auto;
+      }
+
+      div {
+        position: relative;
+        display: flex;
+
+        .successMsg.email {
+          position: absolute;
+          top: 0px;
+          left: 33px;
+        }
+
+        .arrowLeft.email {
+          position: absolute;
+          top: 5px;
+          left: 26px;
+          width: 0;
+          height: 0;
+          border-top: 8px solid transparent;
+          border-bottom: 8px solid transparent;
+          border-right: 8px solid rgb(0, 0, 0 , 0.1);
+          z-index: 100;
+        }
+
+        .arrowLeft.email:after {
+          position: absolute;
+          top: -7px;
+          left: 2px;
+          content: '';
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          border-right: 7px solid white;
+        }
+        
+        .successMsg.phone {
+          position: absolute;
+          top: 0px;
+          left: 145px;
+        }
+
+        .arrowLeft.phone {
+          position: absolute;
+          top: 5px;
+          left: 138px;
+          width: 0;
+          height: 0;
+          border-top: 8px solid transparent;
+          border-bottom: 8px solid transparent;
+          border-right: 8px solid rgb(0, 0, 0 , 0.1);
+          z-index: 100;
+        }
+
+        .arrowLeft.phone:after {
+          position: absolute;
+          top: -7px;
+          left: 2px;
+          content: '';
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          border-right: 7px solid white;
+        }
+      }
+    }
+
+    .emailContainer {
+      justify-self: center;
+      grid-column: 1 / span 1;
+    }
+
+    .phoneContainer {
+      // margin: 0 0 0 auto;
+      justify-self: center;
+      grid-column: 2 / span 1;
+    }
+
+
+    .copyClipboard {
+      position: relative;
+      // top: 5px;
+      width: 22px;
+      height: 24px;
+      margin: 0 0 0 5px;
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  
+    .successMsg.hidden {
+      display: none;
+    }
+    
+    .successMsg.active {
+      display: block;
+    }
+
+    .arrowLeft.hidden {
+      display: none;
+    }
+    
+    .arrowLeft.active {
+      display: block;
+    }
+
+    .successMsg {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 5px;
+      border: 1px solid rgb(0, 0, 0 , 0.1);
+      border-radius: 10px;
+      width: fit-content;
+      color: green;
+    }
+  
+    textarea {
+      display: none;
+    }
+  }
+}

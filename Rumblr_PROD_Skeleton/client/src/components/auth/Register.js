@@ -1,25 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { useHistory, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-import PhotoPostOrRegisterPhotoInput from '../posts/util/components/forms/inputTypes/Photo_Post_Or_Register_Photo_Input';
-
 import Queries from '../../graphql/queries';
 import Mutations from '../../graphql/mutations';
-import PostFormUtil from '../posts/util/functions/post_form_util.js';
 const { REGISTER_USER } = Mutations;
 const { IS_LOGGED_IN } = Queries;
-const { mainPost, 
-        handleFormData } = PostFormUtil;
 
 
 const Register = () => {
-  let previewProfilePicRef = useRef({});
-  let [profileImageFile, setProfileImageFile] = useState([]);
-  let [email, setEmail] = useState('');
   let [blogName, setBlogName] = useState('');
-  let [blogDescription, setBlogDescription] = useState('');
   let [password, setPassword] = useState('');
   let [errorMessages, addErrorMessage] = useState([]);
   let history = useHistory();
@@ -58,7 +49,6 @@ const Register = () => {
   })
 
   const resetInputs = () => {
-    setEmail(email = '');
     setBlogName(blogName = '');
     setPassword(password = '');
     addErrorMessage(errorMessages = []);
@@ -66,27 +56,16 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    var mainImageFormData = handleFormData(profileImageFile)
-
-    Promise.all([
-      mainPost(mainImageFormData)
-    ])
-    .then(([mainUpload]) => {
       
-      var instanceData = {
-        profilePicId: mainUpload[0] ? mainUpload[0]._id : null,
-        email: email, 
-        blogName: blogName,
-        password: password,
-        blogDescription: blogDescription
-      }
+    var instanceData = {
+      blogName: blogName,
+      password: password,
+    }
 
-      registerUser({ 
-        variables: {
-          instanceData: instanceData
-        }
-      })
+    registerUser({ 
+      variables: {
+        instanceData: instanceData
+      }
     })
   }
 
@@ -106,13 +85,6 @@ const Register = () => {
           }}
         >
 
-        <PhotoPostOrRegisterPhotoInput 
-          register={true}
-          previewProfilePicRef={previewProfilePicRef}
-          profileImageFile={profileImageFile}
-          setProfileImageFile={setProfileImageFile}
-        />
-
         <ul
           className='authErrors'
         >
@@ -123,28 +95,11 @@ const Register = () => {
 
         <input
           type='text'
-          value={email}
-          placeholder={'Email'}
-          onChange={e => setEmail(email = e.target.value)}
-        />
-        <input
-          type='text'
           value={blogName}
           placeholder={'Blog Name'}
           onChange={e => setBlogName(blogName = e.target.value)}
         />
-        <textarea
-          value={blogDescription}
-          placeholder={'Blog description'}
-          onChange={e => {
-            if (blogDescription.length < 150) {
-              setBlogDescription(blogDescription = e.target.value)
-            } 
-          }}
-        ></textarea>
-        <span>{150 - blogDescription.length} characters left</span>
-        
-
+      
         <input
           type='password'
           value={password}
@@ -161,7 +116,7 @@ const Register = () => {
         <Link
           to='/login'
         >
-          Already have an account? Log in!
+          Login
         </Link>
       </form>
     </div>
