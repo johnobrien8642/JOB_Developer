@@ -1,0 +1,33 @@
+.loginForm {
+  width: 100%;
+  // background-color: red;
+  margin: 150px auto;
+
+  h1 {
+    font-size: 25px;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    // background-color: blue;
+    width: fit-content;
+    margin: 50px auto;
+
+    input {
+      font-size: 22px;
+      border: 1px solid rgb(0, 0, 0, 0.1);
+    }
+
+    button {
+      font-size: 22px;
+      margin: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
