@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import Mutations from '../../graphql/mutations'
@@ -55,21 +55,7 @@ const Login = () => {
     <div
       className='loginForm'
     >
-      <div
-        className='greetingHeader'
-      >
-        <h1>Rumblr</h1>
-        <p>
-          Welcome to Rumblr, a clone of Tumblr using
-          MongoDB, Express, React, Node, Apollo and GraphQL!
-        </p>
-          <a 
-            href={"https://github.com/johnobrien8642/Rumblr_MERNG"}
-          >
-            Go to Github repository
-          </a>
-      </div>
-
+      <h1>Developer blog log in</h1>
 
       <form
         onSubmit={e => {
@@ -108,11 +94,6 @@ const Login = () => {
         >
           Login
         </button>
-        <Link
-          to='/register'
-        >
-          Don't have an account? Sign up!
-        </Link>
       </form>
     </div>
   )

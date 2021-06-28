@@ -50,6 +50,7 @@ const mutation = new GraphQLObjectType({
         instanceData: { type: GraphQLJSONObject }
       },
       resolve(_, { instanceData }, ctx) {
+        console.log(instanceData)
         return AuthService.register(instanceData, ctx).then(res => {
           ctx.headers.authorization = JSON.stringify(res.token)
           return res

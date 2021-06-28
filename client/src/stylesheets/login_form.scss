@@ -1,0 +1,32 @@
+.loginForm, .registerForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 150px auto;
+
+  h1 {
+    font-size: 25px;
+    margin: 50px auto;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;   
+    margin: 0 auto;
+
+    input {
+      font-size: 22px;
+      border: 1px solid rgb(0, 0, 0, 0.1);
+      margin: 10px 0;
+    }
+
+    button {
+      font-size: 22px;
+      margin: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

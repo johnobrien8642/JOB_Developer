@@ -9,6 +9,7 @@ function validateLoginInput(data) {
   if (Validator.isEmpty(data.email)) {
     return { message: 'Email cannot be empty', isValid: false }
   }
+  
   if (!Validator.isEmail(data.email)) {
     return { message: 'Email is invalid', isValid: false }
   }
