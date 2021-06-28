@@ -1,60 +1,70 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
+  "name": "rumblr_merng",
+  "version": "1.0.0",
+  "description": "A MERNG clone of Tumblr",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "client": "npm start --prefix client",
+    "server": "nodemon index.js",
+    "dev": "NODE_ENV=development concurrently \"npm run server\" \"npm run client\"",
+    "build": "npm install && cd client npm install && cd ckeditor5 npm install",
+    "digitalocean-postbuild": "cd client npm run build && cd ckeditor5 npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnobrien8642/JOB_Developer.git"
+  },
+  "engines": {
+    "node": ">=0.11.0 <15"
+  },
+  "author": "John O'Brien",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnobrien8642/JOB_Developer/issues"
+  },
+  "homepage": "https://github.com/johnobrien8642/JOB_Developer#readme",
   "dependencies": {
-    "@apollo/client": "^3.3.15",
-    "@ckeditor/ckeditor5-react": "^3.0.2",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@tinymce/tinymce-react": "^3.12.2",
+    "@babel/cli": "^7.13.10",
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "apollo-server-express": "^2.21.1",
+    "aws-sdk": "^2.864.0",
     "axios": "^0.21.1",
-    "ckeditor5-custom-build": "file:ckeditor5",
-    "core-js": "^3.11.0",
-    "dompurify": "^2.2.8",
-    "dotenv": "^8.2.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-csp-header": "^4.1.0",
+    "express-graphql": "^0.12.0",
+    "express-ws": "^4.0.0",
+    "form-data": "^3.0.1",
     "froala-editor": "^3.2.6-1",
     "graphql": "^15.5.0",
-    "jquery": "^3.6.0",
+    "graphql-date": "^1.0.3",
+    "graphql-subscriptions": "^1.2.1",
+    "graphql-tag": "^2.11.0",
+    "graphql-type-json": "^0.3.2",
+    "javascript-time-ago": "^2.3.5",
     "js-cookie": "^2.2.1",
-    "music-metadata": "^7.8.3",
-    "music-metadata-browser": "^2.2.6",
-    "randomstring": "^1.1.5",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-h5-audio-player": "^3.7.0",
-    "react-player": "^2.9.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.3",
-    "react-scroll": "^1.8.2",
-    "sass": "^1.32.12",
-    "url-metadata": "^2.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.19",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "node-cron": "^3.0.0",
+    "nodemailer": "^6.5.0",
+    "nodemon": "^2.0.7",
+    "open-graph-scraper": "^4.8.1",
+    "subscriptions-transport-ws": "^0.9.18",
+    "tinymce": "^5.7.1",
+    "uuid": "^8.3.2",
     "validator": "^13.5.2",
-    "web-vitals": "^1.0.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "ws": "^6.2.1"
   }
 }
