@@ -37,10 +37,10 @@ const App = () => {
     <React.Fragment>
       <Switch>
         {/* <Redirect from='/' to='/dashboard' /> */}
-        <Route exact path='/' component={LandingPage} />
+        {/* <Route exact path='/' component={LandingPage} /> */}
 
-        {/* <AuthRoute path='/dashboard' component={Dashboard} />
-        <AuthRoute exact path='/login' component={Login} routeType={'auth'} /> */}
+        <AuthRoute path='/dashboard' component={Dashboard} />
+        <AuthRoute exact path='/login' component={Login} routeType={'auth'} />
         
         {/* <AuthRoute exact path='/register' component={Register} routeType={'auth'} /> */}
         {/* <AuthRoute path={'/view/tag/:tagTitle'} component={TagFeed} />
