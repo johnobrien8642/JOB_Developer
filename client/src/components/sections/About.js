@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Scroll from 'react-scroll';
 import statics from '../../util/statics.js';
 
@@ -52,7 +53,11 @@ const About = () => {
               alt='squiggly'
               src="https://img.icons8.com/material-rounded/64/000000/wavy-line.png"
             />
-            <span>Blog</span>
+            <Link
+              to='/blog'
+            >
+              Blog
+            </Link>
             <img 
               alt='squiggly'
               src="https://img.icons8.com/material-rounded/64/000000/wavy-line.png"

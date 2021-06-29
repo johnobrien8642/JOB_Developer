@@ -13,6 +13,7 @@ import UserFollowersOrFollowingOrActivityFeed from './feeds/User_Followers_Or_Fo
 import UserSettings from './user/User_Settings';
 import Discover from './nav/Discover';
 import AuthRoute from '../util/route_util';
+import Feed from './feeds/Feed';
 import LandingPage from './sections/Landing_Page';
 // uncomment below for email auth welcome page
 // import WelcomePage from './auth/Welcome_Page';
@@ -38,6 +39,8 @@ const App = () => {
       <Switch>
         {/* <Redirect from='/' to='/dashboard' /> */}
         <Route exact path='/' component={LandingPage} />
+        <Route exact path='/blog' component={Feed} />
+        <Route exact path='/blog/:postId' component={UserPostShow} />
 
         {/* <AuthRoute path='/dashboard' component={Dashboard} />
         <AuthRoute exact path='/login' component={Login} routeType={'auth'} /> */}

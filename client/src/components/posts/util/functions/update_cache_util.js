@@ -90,15 +90,13 @@ const commentPost = (
 
 const postDelete = (
   client, 
-  post, 
-  deletePost,
-  currentUser, 
+  post,
   query
 ) => {
   var readFeed = client.readQuery({
     query: query,
     variables: {
-      query: currentUser
+      query: 'admin'
     }
   })
 
@@ -109,7 +107,7 @@ const postDelete = (
   client.writeQuery({
     query: query,
     variables: {
-      query: currentUser
+      query: 'admin'
     },
     data: {
       fetchUserFeed: [{ __typename: 'deletePost' }, ...newPostArr]

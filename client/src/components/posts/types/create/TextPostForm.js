@@ -22,7 +22,7 @@ const { bodyPost, handleFormData,
         discardMentions, preventScroll, 
         allowScroll } = PostFormUtil;
 const { CREATE_OR_UPDATE_POST } = Mutations;
-const { FETCH_USER_FEED } = Queries;
+const { FETCH_FEED } = Queries;
 
 const TextPostForm = ({
   user,
@@ -69,7 +69,7 @@ const TextPostForm = ({
     update(client, { data }){
     const { createOrUpdatePost } = data;
     var currentUser = Cookies.get('currentUser')
-    var query = FETCH_USER_FEED
+    var query = FETCH_FEED
       
       if (post) {
         postUpdate(client, createOrUpdatePost, currentUser, query)

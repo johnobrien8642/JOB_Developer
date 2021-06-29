@@ -1,0 +1,17 @@
+.blogFeed {
+  width: 900px;
+  margin: 150px auto;
+  font-family: var(--font);
+
+  .post {
+    background-color: red;
+    width: 100%;
+    margin: 20px 0;
+
+    .textPostTitle {
+      font-size: 35px;
+      margin: 20px 10px 20px 0;
+
+    }
+  }
+}

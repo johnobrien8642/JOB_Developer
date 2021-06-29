@@ -14,80 +14,85 @@ const postHeader = (
   doesUserFollowUserRef,
   repostFormBool
 ) => {
-  if (post.kind === 'Repost') {
-    return (
-      <div
-        className='userRepostHeader'
-      >
-        <span>
-          <ProfilePic
-            user={post.post.user}
-          />
-          <Link
-            to={`/view/blog/${post.post.user.blogName}`}
-          >
-            {post.post.user.blogName}
-          </Link>
-        </span>
-      </div>
-    )
-  } else if (discover || radar) {
-    return (
-      <div
-        className='postRadarPostHeader discoverPostHeader'
-      >
-        <UserResult user={post.user} />
-      </div>
-    )
-  } else if (repostFormBool) {
-    return (
-      <span
-        className='repostHeaderExtraProPic'
-      >
-        <ProfilePic
-          user={post.user}
-          standaloneLink={true}
-        />
+  return (
+    <div>
+      date goes here postHeader
+    </div>
+  )
+  // if (post.kind === 'Repost') {
+  //   return (
+  //     <div
+  //       className='userRepostHeader'
+  //     >
+  //       <span>
+  //         <ProfilePic
+  //           user={post.post.user}
+  //         />
+  //         <Link
+  //           to={`/view/blog/${post.post.user.blogName}`}
+  //         >
+  //           {post.post.user.blogName}
+  //         </Link>
+  //       </span>
+  //     </div>
+  //   )
+  // } else if (discover || radar) {
+  //   return (
+  //     <div
+  //       className='postRadarPostHeader discoverPostHeader'
+  //     >
+  //       <UserResult user={post.user} />
+  //     </div>
+  //   )
+  // } else if (repostFormBool) {
+  //   return (
+  //     <span
+  //       className='repostHeaderExtraProPic'
+  //     >
+  //       <ProfilePic
+  //         user={post.user}
+  //         standaloneLink={true}
+  //       />
 
-        <div
-          className='profilePicAndLinkContainer'
-        >
-          <ProfilePic 
-            user={post.user}
-          />
+  //       <div
+  //         className='profilePicAndLinkContainer'
+  //       >
+  //         <ProfilePic 
+  //           user={post.user}
+  //         />
 
-          <Link
-            to={`/view/blog/${post.user.blogName}`}
-          >
-            {post.user.blogName}
-          </Link>
-        </div>
-      </span>
-    )
-  } else {
-    return (
-      <span
-        className='userPostHeader'
-      >
-        <ProfilePic
-          user={post.user}
-          standaloneLink={true}
-        />
+  //         <Link
+  //           to={`/view/blog/${post.user.blogName}`}
+  //         >
+  //           {post.user.blogName}
+  //         </Link>
+  //       </div>
+  //     </span>
+  //   )
+  // } else {
+  //   return (
+  //     <span
+  //       className='userPostHeader'
+  //     >
+  //       <ProfilePic
+  //         user={post.user}
+  //         standaloneLink={true}
+  //       />
 
-        <Link
-          to={`/view/blog/${post.user.blogName}`}
-        >
-          {post.user.blogName}
-        </Link>
+  //       <Link
+  //         to={`/view/blog/${post.user.blogName}`}
+  //       >
+  //         {post.user.blogName}
+  //       </Link>
 
-        <FollowButton
-          feed={true}
-          user={post.user}
-          followed={doesUserFollowUserRef.current}
-        />
-      </span>
-    )
-  }
+  //       <FollowButton
+  //         feed={true}
+  //         user={post.user}
+  //         followed={doesUserFollowUserRef.current}
+  //       />
+  //     </span>
+  //   )
+  // }
 }
 
 const repostFooter = (post, update, repostCaption, setRepostCaption) => {

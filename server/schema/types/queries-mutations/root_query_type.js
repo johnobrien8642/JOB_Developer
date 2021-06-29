@@ -1,17 +1,18 @@
 import mongoose from 'mongoose';
 import graphql from 'graphql';
 import jwt from 'jsonwebtoken';
-import keys from '../../../../config/keys.js'
+import keys from '../../../../config/keys.js';
 import UserType from '../objects/user_type.js';
 import FollowType from '../objects/posts/util/follow_type.js';
 import ImageType from '../objects/posts/util/image_type.js';
 import TagType from '../objects/posts/util/tag_type.js';
 import UserAndTagType from '../unions/user_and_tag_type.js';
-import UserAndTagInputType from '../inputs/user_and_tag_input_type.js'
-import AnyPostType from '../unions/any_post_type.js'
-import AnyActivityType from '../unions/any_activity_type.js'
-import LikeRepostAndCommentType from '../unions/like_repost_and_comment_type.js'
-import LikeType from '../objects/posts/util/like_type.js'
+import UserAndTagInputType from '../inputs/user_and_tag_input_type.js';
+import AnyPostType from '../unions/any_post_type.js';
+import TextPostType from '../objects/posts/types/text_post_type.js';
+import AnyActivityType from '../unions/any_activity_type.js';
+import LikeRepostAndCommentType from '../unions/like_repost_and_comment_type.js';
+import LikeType from '../objects/posts/util/like_type.js';
 import SearchUtil from '../../../services/search_util.js';
 import RootQueryTypeUtil from './util/root_query_type_util.js';
 const User = mongoose.model('User');
@@ -229,85 +230,25 @@ const RootQueryType = new GraphQLObjectType({
         })
       }
     },
-    fetchUserFeed: {
-      type: new GraphQLList(AnyPostType),
+    fetchFeed: {
+      type: new GraphQLList(TextPostType),
       args: { 
-        query: { type: GraphQLString },
         cursorId: { type: GraphQLString }
       },
-      resolve(_, { query, cursorId }) {
-        return User.findOne({ blogName: query })
-          .populate('tagFollows')
-          .then(user => {
-            return Follow.find({ user: user, onModel: 'User' })
-              .then(follows => {
-                
-                var filteredTagRegex = handleFilterTagRegex(user)
-                
-                var filteredPostContentRegex = handleFilterPostContentRegex(user)
-           
-                var followIds = follows.map(f => mongoose.Types.ObjectId(f.follows))
-
-                var recastPostId;
-                recastPostId = mongoose.Types.ObjectId(cursorId)
-                
-                return Post.aggregate([
-                  { 
-                    $lookup: {
-                      from: 'posts',
-                      let: { 
-                        userId: user._id,
-                        follows: followIds,
-                        cursor: recastPostId,
-                        filteredTagRegex: filteredTagRegex,
-                        filteredPostContentRegex: filteredPostContentRegex
-                      },
-                      pipeline: [
-                        {
-                          $match: {
-                            $expr: {
-                              $and: [
-                                { $lt: [ "$_id", "$$cursor" ] },
-                                { $not: [
-                                      {
-                                        $regexMatch: {
-                                          input: "$tagTitles",
-                                          regex: "$$filteredTagRegex"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                { $not: [
-                                      {
-                                        $regexMatch: {
-                                          input: "$allText",
-                                          regex: "$$filteredPostContentRegex"
-                                        }
-                                      }
-                                    ]
-                                  },
-                                  { $or: [
-                                    { $eq: [ "$user", "$$userId" ] },
-                                    { $in: [ "$user", "$$follows" ] },
-                                  ]
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      ],
-                      as: 'posts'
-                    }
-                  },
-                  { $unwind: '$posts' },
-                  { $replaceRoot: { "newRoot": "$posts" } },
-                  { $sort: { "createdAt": -1 } },
-                  { $limit: 50 }
-                ]).then(res => {
-                  return res
-                })
-              })
-          })
+      resolve(_, { cursorId }) {
+        var recastPostId;
+        recastPostId = mongoose.Types.ObjectId(cursorId)
+        
+        return Post.find({
+          _id: { $lte: recastPostId }
+        })
+        .limit(20)
+        .sort([
+          ['_id', -1]
+        ])
+        .then(res => {
+          return res
+        })
       }
     },
     fetchTagFeed: {

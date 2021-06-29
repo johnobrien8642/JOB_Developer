@@ -41,7 +41,7 @@ router.post('/images', upload.any(), async (req, res, next) => {
 
   function createImg(f, i) {
     let img = new Image({
-      src: 'http://d19o4ugsraxwa9.cloudfront.net/' + f.key,
+      src: 'http://d1k9pgunak0305.cloudfront.net/' + f.key,
       key: f.key,
       createdAt: Date.now(),
     })

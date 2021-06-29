@@ -3,14 +3,6 @@ const QueryFragments = {
   POST:`
     user {
       _id
-      blogName
-      blogDescription
-      kind
-      profilePic {
-        _id
-        src
-      }
-      totalLikeCount
     }
     allText
     descriptions
@@ -20,27 +12,6 @@ const QueryFragments = {
       key
       kind
       displayIdx
-    }
-    tagIds {
-      _id
-      title
-    }
-    tagTitles
-    mentions {
-      _id
-      user {
-        _id
-        blogName
-        profilePic {
-          _id
-          src
-          kind
-        }
-      }
-      mention {
-        _id
-        blogName
-      }
     }
     createdAt
     kind
@@ -57,7 +28,6 @@ const QueryFragments = {
   TEXT_POST:`
     _id
     title
-    main
   `,
   QUOTE_POST:`
     _id

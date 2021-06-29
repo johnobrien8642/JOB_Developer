@@ -1,45 +1,15 @@
 import { gql } from '@apollo/client';
 import AllPostQueryFragment from './all_posts_query_fragment.js';
+import PostQueryFragment from './post_query_fragments';
+const { POST, TEXT_POST } = PostQueryFragment;
 const { ALL_POSTS, ALL_POSTS_ACTIVITY } = AllPostQueryFragment;
 
 const Queries = {
-  FETCH_USER_FEED: gql`
-    query FetchUserFeed($query: String, $cursorId: String) {
-      fetchUserFeed(query: $query, cursorId: $cursorId) {
-        __typename
-        ... on RepostType {
-          _id
-          kind
-          user {
-            _id
-            blogName
-            profilePic {
-              _id
-              src
-            }
-          }
-          repostTrail {
-            _id
-            caption
-            user {
-              _id
-              blogName
-            }
-            repost {
-              _id
-            }
-          }
-          repostedFrom {
-            _id
-            blogName
-            kind
-          }
-          post {
-            __typename
-            ${ALL_POSTS}
-          }
-        }
-        ${ALL_POSTS}
+  FETCH_FEED: gql`
+    query FetchFeed($cursorId: String) {
+      fetchFeed(cursorId: $cursorId) {
+        ${TEXT_POST}
+        ${POST}
       }
     }
   `,
@@ -124,10 +94,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           repostTrail {
             _id
@@ -167,10 +133,6 @@ const Queries = {
         totalLikeCount
         followersCount
         userPostsCount
-        profilePic {
-          _id
-          src
-        }
       }
     }
   `,
@@ -287,10 +249,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
         }
         ... on RepostType {
@@ -299,10 +257,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           repostedFrom {
             _id
@@ -326,10 +280,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
         }
       }
@@ -345,10 +295,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           post {
             __typename
@@ -390,10 +336,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           repostedFrom {
             _id
@@ -412,10 +354,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           post {
             __typename
@@ -442,10 +380,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           post {
             __typename
@@ -467,10 +401,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           follows {
             __typename
@@ -490,10 +420,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           post {
             __typename
@@ -545,10 +471,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           repostTrail {
             _id
@@ -618,10 +540,6 @@ const Queries = {
           user {
             _id
             blogName
-            profilePic {
-              _id
-              src
-            }
           }
           repostTrail {
             _id
@@ -654,10 +572,6 @@ const Queries = {
         _id
         blogName
         blogDescription
-        profilePic {
-          _id
-          src
-        }
       }
     }
   `,

@@ -14,7 +14,6 @@ const TextPostType = new GraphQLObjectType({
   fields: () => ({
     _id: { type: GraphQLID },
     title: { type: GraphQLString },
-    main: { type: GraphQLString },
     user: {
       type: UserType,
       resolve(parentValue) {
@@ -31,23 +30,6 @@ const TextPostType = new GraphQLObjectType({
         return Post.findById(parentValue._id)
           .populate('descriptionImages')
           .then(post => post.descriptionImages)
-      }
-    },
-    tagIds: {
-      type: new GraphQLList(TagType),
-      resolve(parentValue) {
-        return Post.findById(parentValue._id)
-          .populate('tagIds')
-          .then(post => post.tagIds)
-      }
-    },
-    tagTitles: { type: GraphQLString },
-    mentions: {
-      type: new GraphQLList(MentionType),
-      resolve(parentValue) {
-        return Post.findById(parentValue._id)
-          .populate('mentions')
-          .then(post => post.mentions)
       }
     },
     createdAt: { type: GraphQLString },

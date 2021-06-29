@@ -89,29 +89,13 @@ const updateCacheInfScroll = (
   })
   
   if (readFeed) {
-    var { fetchTagFeed, fetchUserFeed, 
-          fetchAllUserActivity } = readFeed;
+    var { fetchUserFeed } = readFeed;
   }
   
   var newData
   var oldArr
   var newArr
-  if (fetchTagFeed) {
-    oldArr = fetchTagFeed
-    newData = res.data.fetchTagFeed
-    newArr = [...oldArr, ...newData]
-
-    client.writeQuery({
-      query: gqlQuery,
-      variables: {
-        query: query,
-        cursorId: cursorId.current
-      },
-      data: {
-        fetchTagFeed: newArr
-      }
-    })
-  } else if (fetchUserFeed) {
+  if (fetchUserFeed) {
     oldArr = fetchUserFeed
     newData = res.data.fetchUserFeed
     newArr = [...oldArr, ...newData]
@@ -124,36 +108,6 @@ const updateCacheInfScroll = (
       },
       data: {
         fetchUserFeed: newArr
-      }
-    })
-  } else if (fetchAllUserActivity) {
-    oldArr = fetchAllUserActivity
-    newData = res.data.fetchAllUserActivity
-    newArr = [...oldArr, ...newData]
-
-    client.writeQuery({
-      query: gqlQuery,
-      variables: {
-        query: query,
-        cursorId: cursorId.current
-      },
-      data: {
-        fetchAllUserActivity: newArr
-      }
-    })
-  } else if (fetchAllUserActivity) {
-    oldArr = fetchAllUserActivity
-    newData = res.data.fetchAllUserActivity
-    newArr = [...oldArr, ...newData]
-
-    client.writeQuery({
-      query: gqlQuery,
-      variables: {
-        query: query,
-        cursorId: cursorId.current
-      },
-      data: {
-        fetchAllUserActivity: newArr
       }
     })
   }
@@ -187,7 +141,6 @@ const updateCacheInfScrollActivity = (
   var newData
   
   if (fetchAllUserActivity) {
-    console.log(fetchAllUserActivity)
     oldArr = fetchAllUserActivity
     newData = res.data.fetchAllUserActivity
 
@@ -304,37 +257,14 @@ const updateCacheInfScrollFollowedUsers = (
 }
 
 const handleData = (data, feedArr, cursorId, endOfPosts) => {
-  var { fetchUserFeed,
-        fetchUserBlogFeed,
-        fetchTagFeed,
-        fetchAllUserActivity,
-        fetchUserFollowers,
-        fetchFollowedUsers,
-        fetchUserLikes } = data
+  var { fetchFeed } = data
 
-  if (fetchUserFeed) {
-    feedArr.current = fetchUserFeed
-  } else if (fetchUserBlogFeed) {
-    feedArr.current = fetchUserBlogFeed
-  } else if (fetchTagFeed) {
-    feedArr.current = fetchTagFeed
-  } else if (fetchAllUserActivity) {
-    var arr = [...fetchAllUserActivity]
-    arr.sort((a, b) => b.createdAt - a.createdAt)
-    feedArr.current = arr
-  } else if (fetchUserFollowers) {
-    feedArr.current = fetchUserFollowers
-  } else if (fetchFollowedUsers) {
-    feedArr.current = fetchFollowedUsers
-  } else if (fetchUserLikes) {
-    feedArr.current = fetchUserLikes
-  } else if (fetchFollowedUsers) {
-    feedArr.current = fetchFollowedUsers
-  } else if (fetchUserFollowers) {
-    feedArr.current = fetchUserFollowers
+  if (fetchFeed) {
+    feedArr.current = fetchFeed
   }
   
   endOfPosts.current = feedArr.current.length === 0 ? true : false
+
   if (feedArr.current.length > 0) {
     cursorId.current = feedArr.current[feedArr.current.length - 1]._id
   }

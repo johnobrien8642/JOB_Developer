@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 
 import PostNotes from '../../util/components/social/Post_Notes.js';
 import PostOptions from '../../util/components/social/Post_Options.js';
-import RepostForm from '../../util/components/social/Repost_Form';
 
 import PostShowUtil from '../../util/functions/post_show_util.js';
 import Queries from '../../../../graphql/queries';
@@ -28,8 +27,6 @@ const PostShow = ({
   radar,
   repostCaption,
   setRepostCaption,
-  uploading,
-  setUploading
 }) => {
   let [notesActive, setNotesActive] = useState(false)
   let [repostActive, setRepostActive] = useState(false)
@@ -46,23 +43,19 @@ const PostShow = ({
   }, [confirmDelete])
 
   let [deletePost] = useMutation(DELETE_POST, {
-    update(client, { data }) {
-      const { deletePost } = data;
-      var currentUser = Cookies.get('currentUser')
-      var query = FETCH_USER_FEED
+    update(client) {
     
       postDelete(
-        client, post, deletePost,
-        currentUser, query
+        client, post, FETCH_USER_FEED
       )
     }
   })
 
-  let { loading, error, data } = useQuery(FETCH_LIKES_REPOSTS_AND_COMMENTS, {
-    variables: {
-      postId: post._id
-    }
-  })
+  // let { loading, error, data } = useQuery(FETCH_LIKES_REPOSTS_AND_COMMENTS, {
+  //   variables: {
+  //     postId: post._id
+  //   }
+  // })
 
   const toggleNotes = () => {
     if (notesActive) {
@@ -75,30 +68,33 @@ const PostShow = ({
   const notesAndOptions = () => {
     if (!repostFormBool) {
       return (
-        <React.Fragment>
-          <PostNotes
-            post={post}
-            notesCount={data.fetchLikesRepostsAndComments.length}
-            notes={data.fetchLikesRepostsAndComments}
-            notesActive={notesActive}
-            setNotesActive={setNotesActive}
-          />
+        <div>
+
+        </div>
+        // <React.Fragment>
+        //   <PostNotes
+        //     post={post}
+        //     notesCount={data.fetchLikesRepostsAndComments.length}
+        //     notes={data.fetchLikesRepostsAndComments}
+        //     notesActive={notesActive}
+        //     setNotesActive={setNotesActive}
+        //   />
       
-          <PostOptions
-            post={post}
-            notesCount={data.fetchLikesRepostsAndComments.length}
-            notesActive={notesActive}
-            setNotesActive={setNotesActive}
-            toggleNotes={toggleNotes}
-            update={update}
-            setUpdate={setUpdate}
-            toggleUpdate={toggleUpdate}
-            repostActive={repostActive}
-            setRepostActive={setRepostActive}
-            confirmDelete={confirmDelete}
-            setConfirmDelete={setConfirmDelete}
-          />
-        </React.Fragment>
+        //   <PostOptions
+        //     post={post}
+        //     notesCount={data.fetchLikesRepostsAndComments.length}
+        //     notesActive={notesActive}
+        //     setNotesActive={setNotesActive}
+        //     toggleNotes={toggleNotes}
+        //     update={update}
+        //     setUpdate={setUpdate}
+        //     toggleUpdate={toggleUpdate}
+        //     repostActive={repostActive}
+        //     setRepostActive={setRepostActive}
+        //     confirmDelete={confirmDelete}
+        //     setConfirmDelete={setConfirmDelete}
+        //   />
+        // </React.Fragment>
       )
     }
   }
@@ -145,8 +141,8 @@ const PostShow = ({
     }
   }
 
-  if (loading) return 'Loading...';
-  if (error) return `Error: ${error}`
+  // if (loading) return 'Loading...';
+  // if (error) return `Error: ${error}`
   
   switch(post) {
     case null:
@@ -161,22 +157,10 @@ const PostShow = ({
             {postHeader(post, discover, radar, doesUserFollowUserRef, repostFormBool)}
         
             {postBody(post)}
-        
-            {repostFooter(post, update, repostCaption, setRepostCaption)}
-        
-            {postTags(post)}
 
             {notesAndOptions()}
 
             {renderConfirmDelete()}
-
-            <RepostForm
-              post={post}
-              repostActive={repostActive}
-              setRepostActive={setRepostActive}
-              uploading={uploading}
-              setUploading={setUploading}
-            />
         </React.Fragment>
       )
   }
