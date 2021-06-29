@@ -32,9 +32,7 @@ const createOrUpdatePost = ({
   allText,
   descriptions,
   descriptionImages,
-  mentions,
-  user, 
-  tags, 
+  user,
   kind,
   objsToClean,
   postId
@@ -43,21 +41,19 @@ const createOrUpdatePost = ({
   
   var uploads = returnInstancesOnly(descriptionImages)
   var imageLinks = returnNewImageLinksOnly(descriptionImages)
-
-  var mentionsToClean = returnMentionInstancesOnly(objsToClean)
   
   return Promise.all([
     updateUploadDispIdx(uploads, asyncUpdateUpload),
     createImagesFromLinks(imageLinks, asyncImageLink),
-    getTagArr(tags, asyncTag, findOrCreateTag, user),
     User.findOne({ blogName: user }),
     Post.findById(postId),
     handles3AndObjectCleanup(objsToClean, s3Client, keys),
-    cleanupMention(mentionsToClean)
   ]).then(
-    ([updatedUploads, linkImages,
-      tags, user, foundPost,
-      cleaneds3AndObjs, cleanupMention]) => {
+    ([updatedUploads, 
+      linkImages,
+      user, 
+      foundPost,
+      cleaneds3AndObjs]) => {
       
       if (update) {
         var instance = foundPost
@@ -77,27 +73,14 @@ const createOrUpdatePost = ({
         )
     
         pushDescriptionImgObjs(readyDescriptionImgs, instance)
-  
-        pushTags(tags, instance)
-        
-        return handleMentions(
-            mentions, asyncMention,
-            findOrCreateMention, user,
-            instance
-          ).then(mentions => {
-    
-          pushMentions(mentions, instance)
-          
-          markModified(instance, update)
 
-          if (update) {
-            instance.updatedAt = Date.now()
-          }
-          
-          return Promise.all([instance.save()]).then(
-            ([instance])=> (instance)
-          )
-        })        
+        if (update) {
+          instance.updatedAt = Date.now()
+        }
+        
+        return Promise.all([instance.save()]).then(
+          ([instance])=> (instance)
+        ) 
       })
     }
   )
