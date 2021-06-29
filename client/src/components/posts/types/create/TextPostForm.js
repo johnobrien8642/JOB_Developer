@@ -1,43 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import randomstring from 'randomstring';
 import Cookies from 'js-cookie';
 
 import TextPostInput from '../../util/components/forms/inputTypes/Text_Post_Input'
 import BodyImageAndText from '../../util/components/forms/Body_Image_And_Text'
-import Tags from '../../util/components/forms/Tags'
-import ProfilePic from '../../../user/util/components/Profile_Pic';
-import ConfirmClose from '../../../nav/Confirm_Close.js';
 
-import Queries from '../../../../graphql/queries.js';
 import Mutations from '../../../../graphql/mutations.js';
 import PostFormUtil from '../../util/functions/post_form_util.js';
-import UpdateCacheUtil from '../../util/functions/update_cache_util.js';
-const { postCreate, postUpdate } = UpdateCacheUtil;
-const { bodyPost, handleFormData, 
-        stripAllImgs, handleUploadedFiles, 
-        resetDisplayIdx, handleTagInput,
-        handleAllTextTextPost, handleMentions, 
-        discardMentions, preventScroll, 
+const { bodyPost, handleFormData,
+        stripAllImgs, handleUploadedFiles,
+        resetDisplayIdx,
+        handleAllTextTextPost,
+        preventScroll,
         allowScroll } = PostFormUtil;
 const { CREATE_OR_UPDATE_POST } = Mutations;
-const { FETCH_FEED } = Queries;
 
 const TextPostForm = ({
-  user,
-  mobile,
-  post, 
+  post,
   update,
   setUpdate,
   textPostActive,
-  setTextPostActive,
-  postFormModal,
-  setPostFormModal,
-  postFormOpen,
-  setPostFormOpen,
-  uploading,
-  setUploading
 }) => {
   let [title, setTitle] = useState('');
 
@@ -46,12 +30,11 @@ const TextPostForm = ({
   let [bodyImageFiles, setBodyImageFiles] = useState([]);
   let body = useRef([]);
   let allText = useRef('');
-  let [tag, setTag] = useState('');
-  let [tags, setTags] = useState([]);
   let [errMessage, setErrMessage] = useState('');
   let [render, setRender] = useState(0);
-  let [confirmClose, setConfirmClose] = useState(false);
+  let [success, setSuccess] = useState(false);
   let history = useHistory();
+  let location = useLocation();
   const formId = 'textPostForm'
   const formInputId = 'textPostInput'
 
@@ -66,33 +49,14 @@ const TextPostForm = ({
   })
 
   let [createOrUpdatePost] = useMutation(CREATE_OR_UPDATE_POST, {
-    update(client, { data }){
-    const { createOrUpdatePost } = data;
-    var currentUser = Cookies.get('currentUser')
-    var query = FETCH_FEED
-      
-      if (post) {
-        postUpdate(client, createOrUpdatePost, currentUser, query)
-      } else {
-        postCreate(client, createOrUpdatePost, currentUser, query)
-      }
-    },
     onCompleted() {
       resetInputs();
+      
       if (post) {
         setUpdate(update = false)
-        setUploading(uploading = false)
       } else {
         allowScroll(document)
-        setUploading(uploading = false)
-        setTextPostActive(textPostActive = false)
-
-        if (mobile) {
-          setPostFormOpen(postFormOpen = false)
-          history.push('/dashboard')
-        }
-
-        setUploading(uploading = false)
+        history.push('/')
       }
     },
     onError(error) {
@@ -105,9 +69,8 @@ const TextPostForm = ({
     setTitle(title = '');
     body.current = []
     allText.current = '';
+    setDescription(description = '')
     setBodyImageFiles(bodyImageFiles = []);
-    setTag(tag = '');
-    setTags(tags = []);
     setErrMessage(errMessage = '');
   }
 
@@ -121,10 +84,6 @@ const TextPostForm = ({
     ]).then(
       ([bodyUploads]) => {
 
-        var mentions = handleMentions(body, stripAllImgs)
-        
-        discardMentions(post, mentions, objsToClean)
-
         var descriptions = stripAllImgs(body)
 
         handleAllTextTextPost(allText, descriptions, title)
@@ -136,9 +95,8 @@ const TextPostForm = ({
           allText: allText.current,
           descriptions: descriptions,
           descriptionImages: handleUploadedFiles(body, bodyUploads),
-          mentions: mentions,
           user: Cookies.get('currentUser'),
-          tags, kind: 'TextPost',
+           kind: 'TextPost',
           objsToClean: objsToClean.current,
           postId: post ? post._id : null
         }
@@ -156,16 +114,11 @@ const TextPostForm = ({
     return !title && body.current.length === 0 && !description
   }
 
-  const handleTextPostFormClass = () => {
-    if ((textPostActive && !uploading) || update) {
-      return 'postForm textPostForm active'
-    } else if ((textPostActive && uploading) || uploading) {
-      return 'postForm textPostForm hidden'
-    } else {
-      return 'postForm textPostForm none'
+  const handleSuccessMsg = () => {
+    if (success) {
+      return <div className='success'>Success</div>
     }
   }
-  
   
   if (textPostActive || update) {
     return (
@@ -173,10 +126,10 @@ const TextPostForm = ({
       className={update ? 'postFormContainer update' : 'postFormContainer'}
     >
 
-      <ProfilePic user={update ? post.user : user} />
+      {handleSuccessMsg()}
 
       <div
-        className={handleTextPostFormClass()}
+        className={'postform textPostForm'}
       >
         <form
           id={formId}
@@ -184,10 +137,6 @@ const TextPostForm = ({
           onKeyPress={e => { e.key === 'Enter' && e.preventDefault() }}
           encType={'multipart/form-data'}
         >
-
-        <h3
-          className='userNameHeader'
-        >{update ? post.user.blogName : user.blogName}</h3>
   
         <TextPostInput
           post={post}
@@ -216,59 +165,11 @@ const TextPostForm = ({
           errMessage={errMessage}
           setErrMessage={setErrMessage}
         />
-  
-        <Tags
-          post={post}
-          tag={tag}
-          setTag={setTag}
-          tags={tags}
-          setTags={setTags}
-        />
 
           <div
-            className='closeOrPostContainer'
+            className='postBtnContainer'
           >
-            <div
-              className={'closeBtn'}
-              onClick={() => {
-                if (disabledBool()) {
-                  allowScroll(document)
-                  resetInputs()
-                  
-                  if (!update) {
-                    setTextPostActive(textPostActive = false)
-                    setPostFormModal(postFormModal = false)
-                  } else {
-                    setUpdate(update = false)
-                  }
 
-                  if (mobile) {
-                    setPostFormOpen(postFormOpen = false)
-                  }
-                } else  {
-                  setConfirmClose(confirmClose = true)
-                }
-              }}
-            >
-              Close
-            </div>
-
-            <ConfirmClose
-              mobile={mobile}
-              update={update}
-              setUpdate={setUpdate}
-              confirmClose={confirmClose}
-              setConfirmClose={setConfirmClose}
-              allowScroll={allowScroll}
-              resetInputs={resetInputs}
-              setFormActive={setTextPostActive}
-              formActive={textPostActive}
-              setPostFormModal={setPostFormModal}
-              postFormModal={postFormModal}
-              postFormOpen={postFormOpen}
-              setPostFormOpen={setPostFormOpen}
-            />
-            
             <button
               type='submit'
               className={disabledBool() ? 'formSubmitBtn disabled' : 'formSubmitBtn'}
@@ -290,19 +191,6 @@ const TextPostForm = ({
                 
                   setDescription(description = '')
                 }
-                
-                if (tag) {
-                  handleTagInput(
-                    tag, setTag,
-                    tags, setTags
-                  )
-                }
-                
-                if (!update) {
-                  setPostFormModal(postFormModal = false)
-                }
- 
-                setUploading(uploading = true)
               }}
             >
               {post ? 'Update' : 'Post'}

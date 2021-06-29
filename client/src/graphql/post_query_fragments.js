@@ -12,7 +12,11 @@ const QueryFragments = {
       key
       kind
       displayIdx
+<<<<<<< HEAD
     }
+=======
+    }  
+>>>>>>> blog-upload
     createdAt
     kind
   `,
