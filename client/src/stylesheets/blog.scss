@@ -1,0 +1,152 @@
+.blogFeedContainer, .singlePostShowContainer {
+
+  .backToBlogLink {
+    display: block;
+    margin: 25px;
+    text-decoration: underline;
+    font-size: 25px;
+    width: fit-content;
+  }
+
+  .blogFeed, .singlePostShow {
+    width: 700px;
+    margin: 50px auto;
+
+    .searchAndIndexNav {
+      display: flex;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      background-color: red;
+      width: 100%;
+
+      .searchInput {
+        // background-color: blue;
+        font-size: 20px;
+        padding: 3px 5px;
+        width: 400px;
+  
+        .resultsDD {
+
+        }
+      }
+
+      .postIndex {
+        background-color: blue;
+      
+      }
+    }
+
+    .post.single {
+      margin: 50px 0 150px 0;
+    }
+
+    .post {
+      width: 100%;
+      border-top: 1px solid rgb(0, 0, 0, 0.2);
+      margin: 150px 0;
+
+      .titleAndDateContainer {
+
+        a {
+          display: block;
+          font-size: 35px;
+          font-weight: 500;
+          margin: 15px 0;
+          width: fit-content;
+        }
+
+        h3 {
+          font-size: 20px;
+          font-weight: 300;
+          margin: 0 0 15px 5px;
+        }
+      }
+
+      .descriptionText {
+        margin: 25px 0;
+        font-size: 25px;
+        line-height: 35px;
+        text-align: justify;
+      }
+
+      .descriptionImgContainer {
+        margin: 10px 0;
+  
+        .descriptionImg {        
+          width: 100%;
+          object-fit: contain;
+        }
+      }
+
+      .copyLinkContainer {
+        position: relative;
+        display: flex;
+        margin: 30px 30px 0 auto;
+        width: fit-content;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        .copyLinkIcon {
+          width: 40px;
+        }
+
+        .copySuccess.hidden {
+          display: none;
+        }
+        
+        .copySuccess.active {
+          display: block;
+        }
+    
+        .arrowRight.hidden {
+          display: none;
+        }
+        
+        .arrowRight.active {
+          display: block;
+        }
+
+        .arrowRight {
+          position: absolute;
+          top: 12px;
+          left: -8px;
+          width: 0;
+          height: 0;
+          border-top: 6px solid transparent;
+          border-bottom: 6px solid transparent;
+          border-left: 6px solid rgb(0, 0, 0, 0.1);
+          z-index: 90;
+        }
+
+        .arrowRight:after {
+          position: absolute;
+          top: -7px;
+          left: -9px;
+          content: '';
+          width: 0;
+          height: 0;
+          border-top: 7px solid transparent;
+          border-bottom: 7px solid transparent;
+          border-left: 7px solid white;
+          // z-index: 100;
+        }
+    
+        .copySuccess {
+          position: absolute;
+          top: 7px;
+          left: -60px;
+          font-size: 12px;
+          font-weight: 500;
+          padding: 3px 5px;
+          border: 1px solid rgb(0, 0, 0, 0.1);
+          border-radius: 10px;
+          width: fit-content;
+          color: green;
+        }
+      }
+    }
+  }
+}

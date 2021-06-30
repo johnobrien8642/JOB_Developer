@@ -1,27 +1,35 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, Link } from 'react-router-dom';
 import randomstring from 'randomstring';
 import Cookies from 'js-cookie';
+import Scroll from 'react-scroll';
 
 import TextPostInput from '../../util/components/forms/inputTypes/Text_Post_Input'
 import BodyImageAndText from '../../util/components/forms/Body_Image_And_Text'
 
+import Queries from '../../../../graphql/queries.js';
 import Mutations from '../../../../graphql/mutations.js';
 import PostFormUtil from '../../util/functions/post_form_util.js';
+import UpdateCacheUtil from '../../util/functions/update_cache_util.js';
+const Element = Scroll.Element;
 const { bodyPost, handleFormData,
         stripAllImgs, handleUploadedFiles,
         resetDisplayIdx,
         handleAllTextTextPost,
         preventScroll,
         allowScroll } = PostFormUtil;
+const { postCreate } = UpdateCacheUtil;
+const { FETCH_FEED } = Queries;
 const { CREATE_OR_UPDATE_POST } = Mutations;
 
 const TextPostForm = ({
   post,
   update,
+  mainForm,
   setUpdate,
   textPostActive,
+  dashboardFeed
 }) => {
   let [title, setTitle] = useState('');
 
@@ -53,7 +61,7 @@ const TextPostForm = ({
       resetInputs();
       
       if (post) {
-        setUpdate(update = false)
+        history.push('/dashboard')
       } else {
         allowScroll(document)
         history.push('/')
@@ -111,7 +119,7 @@ const TextPostForm = ({
   }
 
   const disabledBool = () => {
-    return !title && body.current.length === 0 && !description
+    return !title && body.current.length === 0 && !description && (update && mainForm)
   }
 
   const handleSuccessMsg = () => {
@@ -141,15 +149,18 @@ const TextPostForm = ({
         <TextPostInput
           post={post}
           update={update}
+          mainForm={mainForm}
           formInputId={formInputId}
           title={title}
           setTitle={setTitle}
           render={render}
           setRender={setRender}
+          dashboardFeed={dashboardFeed}
         />
   
         <BodyImageAndText
           displayBodyImageAndTextInput={true}
+          mainForm={mainForm}
           post={post}
           update={update}
           formId={formId}
@@ -164,11 +175,18 @@ const TextPostForm = ({
           setRender={setRender}
           errMessage={errMessage}
           setErrMessage={setErrMessage}
+          dashboardFeed={dashboardFeed}
         />
 
           <div
             className='postBtnContainer'
           >
+            <Link
+              className='closeLink'
+              to='/dashboard'
+            >
+              Close
+            </Link>
 
             <button
               type='submit'

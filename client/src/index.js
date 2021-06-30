@@ -68,7 +68,7 @@ const client = new ApolloClient({
              return incoming
            }
         },
-        fetchUserFeed: {
+        fetchFeed: {
           keyArgs: ['query'],
             merge: (existing = [], incoming = []) => {
 

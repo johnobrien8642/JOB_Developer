@@ -15,6 +15,7 @@ import LikeRepostAndCommentType from '../unions/like_repost_and_comment_type.js'
 import LikeType from '../objects/posts/util/like_type.js';
 import SearchUtil from '../../../services/search_util.js';
 import RootQueryTypeUtil from './util/root_query_type_util.js';
+import { GraphQLJSONObject } from 'graphql-type-json';
 const User = mongoose.model('User');
 const Post = mongoose.model('Post');
 const Image = mongoose.model('Image');
@@ -247,6 +248,32 @@ const RootQueryType = new GraphQLObjectType({
           ['_id', -1]
         ])
         .then(res => {
+          return res
+        })
+      }
+    },
+    searchPosts: {
+      type: new GraphQLList(TextPostType),
+      args: {
+        query: { type: GraphQLJSONObject }
+      },
+      resolve(_, { query }) {
+        var recastPostId;
+        if (mongoose.isValidObjectId(query.string)) {
+          recastPostId = mongoose.Types.ObjectId(query.string)
+        }
+        
+        return Post
+          .find({
+            $or: [
+              { '_id': recastPostId },
+              { 'allText': new RegExp(query.string, 'i') },
+              { 'title': new RegExp(query.string, 'i') },
+              { 'createdAtTimeString': new RegExp(query.string, 'i') }
+            ]
+          })
+          .limit(30)
+          .then(res => {
           return res
         })
       }
@@ -966,7 +993,7 @@ const RootQueryType = new GraphQLObjectType({
       }
     },
     post: {
-      type: AnyPostType,
+      type: TextPostType,
       args: {
         query: { type: GraphQLID }
       },

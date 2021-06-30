@@ -14,7 +14,11 @@ import UserSettings from './user/User_Settings';
 import Discover from './nav/Discover';
 import AuthRoute from '../util/route_util';
 import Feed from './feeds/Feed';
+import BlogFeed from './sections/Blog_Feed';
 import LandingPage from './sections/Landing_Page';
+import EditPost from './sections/Edit_Post';
+import SinglePostShow from './sections/Single_Post_Show';
+
 // uncomment below for email auth welcome page
 // import WelcomePage from './auth/Welcome_Page';
 
@@ -39,8 +43,8 @@ const App = () => {
       <Switch>
         {/* <Redirect from='/' to='/dashboard' /> */}
         <Route exact path='/' component={LandingPage} />
-        <Route exact path='/blog' component={Feed} />
-        <Route exact path='/blog/:postId' component={UserPostShow} />
+        <Route exact path='/blog' component={BlogFeed} />
+        <Route exact path='/blog/:postId' component={SinglePostShow} />
 
         {/* <AuthRoute path='/dashboard' component={Dashboard} />
         <AuthRoute exact path='/login' component={Login} routeType={'auth'} /> */}
@@ -49,6 +53,7 @@ const App = () => {
         <Redirect exact from='/' to='/dashboard' />
         <AuthRoute exact path='/dashboard' component={Dashboard} />
         <AuthRoute exact path='/login' component={Login} routeType={'auth'} />
+        <AuthRoute exact path='/edit/:postId' component={EditPost} />
         
         {/* <AuthRoute exact path='/register' component={Register} routeType={'auth'} /> */}
         {/* <AuthRoute path={'/view/tag/:tagTitle'} component={TagFeed} />

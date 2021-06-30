@@ -22,10 +22,7 @@ mongoose
   useUnifiedTopology: true,
   useNewUrlParser: true,
   useCreateIndex: true,
-  useFindAndModify: false,
-  serverSelectionTimeoutMS: 1000,
-  bufferMaxEntries: 0,
-  bufferCommands: false
+  useFindAndModify: false
 })
 .then(() => console.log('Connected to MongoDB successfully'))
 .catch(err => console.log(err))

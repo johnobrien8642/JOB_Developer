@@ -1,7 +1,7 @@
 const postCreate = (
   client, 
   createPost,
-  currentUser, 
+  currentUser,
   query
 ) => {
   var readQuery = client.readQuery({
@@ -100,9 +100,9 @@ const postDelete = (
     }
   })
 
-  var { fetchUserFeed } = readFeed;
+  var { fetchFeed } = readFeed;
   
-  var newPostArr = fetchUserFeed.filter(post1 => post1._id !== post._id)
+  var newPostArr = fetchFeed.filter(post1 => post1._id !== post._id)
 
   client.writeQuery({
     query: query,
@@ -110,7 +110,7 @@ const postDelete = (
       query: 'admin'
     },
     data: {
-      fetchUserFeed: [{ __typename: 'deletePost' }, ...newPostArr]
+      fetchFeed: [{ __typename: 'deletePost' }, ...newPostArr]
     }
   })
 }

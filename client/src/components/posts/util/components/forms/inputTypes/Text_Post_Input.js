@@ -4,9 +4,10 @@ import PostUpdateUtil from '../../../functions/post_update_util.js';
 const { reassembleTextPostStatics } = PostUpdateUtil;
 
 const TextPostInput = ({
-  post, 
+  post,
   title, 
-  setTitle
+  setTitle,
+  dashboardFeed
 }) => {
 
   useEffect(() => {
@@ -27,7 +28,10 @@ const TextPostInput = ({
     >
       <span
         data-placeholder='Title'
-        className={title ? 'titleInput active' : 'titleInput placeholder'}
+        className={
+          title ? `titleInput ${dashboardFeed ? 'dash': ''} active` : 
+          `titleInput ${dashboardFeed ? 'dash': ''} placeholder`
+        }
         contentEditable='true'
         onInput={e => {
           setTitle(title = e.target.textContent)

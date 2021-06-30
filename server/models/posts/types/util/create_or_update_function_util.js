@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import dateAndTime from 'date-and-time';
 
 const TextPost = mongoose.model('TextPost')
 const PhotoPost = mongoose.model('PhotoPost')
@@ -260,9 +261,14 @@ const handleVariants = async (variants, instance, user) => {
   switch(instance.kind) {
     case 'TextPost':
       var { title } = variants
-      console.log(title)
+      
       instance.title = title
       instance.user = user._id
+
+      const now = new Date()
+      instance.createdAtTimeString =
+      dateAndTime.format(now, 'YYYY/MM/DD') + ' ' +
+      dateAndTime.format(now, 'dddd, MMMM DD YYYY')
       break
     case 'PhotoPost':
       var { mainImages } = variants

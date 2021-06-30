@@ -8,7 +8,8 @@ const PostUpdateOrShow = ({
   currentUser,
   repostFormBool,
   uploading,
-  setUploading
+  setUploading,
+  dashboardFeed
 }) => {
   let [update, setUpdate] = useState(false)
 
@@ -19,7 +20,7 @@ const PostUpdateOrShow = ({
       setUpdate(update = true)
     }
   }
-
+  
   if (update) {
     return (
       <PostUpdate
@@ -30,6 +31,7 @@ const PostUpdateOrShow = ({
         toggleUpdate={toggleUpdate}
         uploading={uploading}
         setUploading={setUploading}
+        dashboardFeed={dashboardFeed}
       />
     )
   } else {
@@ -43,6 +45,7 @@ const PostUpdateOrShow = ({
         repostFormBool={repostFormBool}
         uploading={uploading}
         setUploading={setUploading}
+        dashboardFeed={dashboardFeed}
       />
     )
   }

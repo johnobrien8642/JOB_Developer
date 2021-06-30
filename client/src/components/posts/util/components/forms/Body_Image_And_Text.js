@@ -10,9 +10,10 @@ const { reassembleBody } = PostUpdateUtil;
 
 const BodyImageAndText = ({
   displayBodyImageAndTextInput,
-  post, 
-  formId, 
+  post,
+  formId,
   update,
+  dashboardFeed,
   formInputId, 
   objsToClean,
   body, 

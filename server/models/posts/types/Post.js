@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import searchable from 'mongoose-regex-search';
 const Schema = mongoose.Schema;
 
 const options = { discriminatorKey: 'kind' }
@@ -48,6 +49,9 @@ const PostSchema = new Schema({
     type: Number,
     default: 0
   },
+  createdAtTimeString: {
+    type: String
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -61,7 +65,8 @@ const PostSchema = new Schema({
     default: 'Post'
   }
 }, options)
-  
+
+PostSchema.plugin(searchable)
 const Post = mongoose.model('Post', PostSchema, 'posts')
 
 export default Post;

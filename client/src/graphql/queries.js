@@ -13,6 +13,14 @@ const Queries = {
       }
     }
   `,
+  SEARCH_POSTS: gql`
+    query SearchPosts($query: JSONObject) {
+      searchPosts(query: $query) {
+        ${TEXT_POST}
+        ${POST}
+      }
+    }
+  `,
   FETCH_TAG_FEED: gql`
     query FetchTagFeed($query: String, $cursorId: String) {
       fetchTagFeed(query: $query, cursorId: $cursorId) {
@@ -196,35 +204,8 @@ const Queries = {
   FETCH_POST: gql`
     query FetchPost($query: ID) {
       post(query: $query) {
-        __typename
-        ... on RepostType {
-          _id
-          kind
-          user {
-            _id
-            blogName
-          }
-          repostedFrom {
-            _id
-            blogName
-          }
-          repostTrail {
-            _id
-            caption
-            user {
-              _id
-              blogName
-            }
-            repost {
-              _id
-            }
-          }
-          post {
-            __typename
-            ${ALL_POSTS}
-          }
-        }
-        ${ALL_POSTS}
+        ${TEXT_POST}
+        ${POST}
       }
     }
   `,

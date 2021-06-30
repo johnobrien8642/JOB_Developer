@@ -177,11 +177,6 @@ const postBody = (post) => {
   if (data.kind === 'TextPost') {
     return (
       <React.Fragment>
-        <h3
-          className='textPostTitle'
-        >
-          {data.title}
-        </h3>
         {displayDescription(descriptionArr)}
       </React.Fragment>
     )
