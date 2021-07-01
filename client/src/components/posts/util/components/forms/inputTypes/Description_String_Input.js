@@ -36,6 +36,7 @@ const DescriptionStringInput = ({
       'underline',
       'link',
       'blockQuote',
+      'markdown',
       'undo',
       'redo'
     ],

@@ -1,10 +1,11 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 import aws from 'aws-sdk';
 import keys from '../../../../config/keys.js';
-import CreateOrUpdateFunctionUtil from './create_or_update_function_util.js'
-import DeleteFunctionUtil from './delete_function_util.js'
-const User = mongoose.model('User')
-const Post = mongoose.model('Post')
+import CreateOrUpdateFunctionUtil from './create_or_update_function_util.js';
+import DeleteFunctionUtil from './delete_function_util.js';
+const User = mongoose.model('User');
+const Post = mongoose.model('Post');
+const PostIndex = mongoose.model('PostIndex');
 const s3 = new aws.S3();
 
 var s3Client = new aws.S3({
@@ -21,8 +22,8 @@ const { getTagArr, asyncTag, findOrCreateTag,
         returnMentionInstancesOnly,
         allImgObjsSorted, pushDescriptionImgObjs,
         pushDescriptions, pushTags, pushMentions, 
-        markModified, handleVariants, createInstance, 
-        resetFoundPost, handleAllText } = CreateOrUpdateFunctionUtil;
+        markModified, handleVariants, handleUpdateIndex, 
+        createInstance, resetFoundPost, handleAllText } = CreateOrUpdateFunctionUtil;
 const { cleanupMention, handles3AndObjectCleanup } = DeleteFunctionUtil;
 
 
@@ -47,12 +48,14 @@ const createOrUpdatePost = ({
     createImagesFromLinks(imageLinks, asyncImageLink),
     User.findOne({ blogName: user }),
     Post.findById(postId),
+    PostIndex.find({}),
     handles3AndObjectCleanup(objsToClean, s3Client, keys),
   ]).then(
-    ([updatedUploads, 
+    ([updatedUploads,
       linkImages,
       user, 
       foundPost,
+      index,
       cleaneds3AndObjs]) => {
       
       if (update) {
@@ -74,12 +77,14 @@ const createOrUpdatePost = ({
     
         pushDescriptionImgObjs(readyDescriptionImgs, instance)
 
+        handleUpdateIndex(index[0], instance)
+
         if (update) {
           instance.updatedAt = Date.now()
         }
         
-        return Promise.all([instance.save()]).then(
-          ([instance])=> (instance)
+        return Promise.all([instance.save(), index[0].save()]).then(
+          ([instance, index])=> (instance)
         ) 
       })
     }

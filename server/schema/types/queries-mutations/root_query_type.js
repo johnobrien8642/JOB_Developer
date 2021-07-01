@@ -10,12 +10,14 @@ import UserAndTagType from '../unions/user_and_tag_type.js';
 import UserAndTagInputType from '../inputs/user_and_tag_input_type.js';
 import AnyPostType from '../unions/any_post_type.js';
 import TextPostType from '../objects/posts/types/text_post_type.js';
+import PostIndexType from '../objects/posts/types/post_index_type.js';
 import AnyActivityType from '../unions/any_activity_type.js';
 import LikeRepostAndCommentType from '../unions/like_repost_and_comment_type.js';
 import LikeType from '../objects/posts/util/like_type.js';
 import SearchUtil from '../../../services/search_util.js';
 import RootQueryTypeUtil from './util/root_query_type_util.js';
 import { GraphQLJSONObject } from 'graphql-type-json';
+import PostIndex from '../../../models/posts/PostIndex.js';
 const User = mongoose.model('User');
 const Post = mongoose.model('Post');
 const Image = mongoose.model('Image');
@@ -250,6 +252,16 @@ const RootQueryType = new GraphQLObjectType({
         .then(res => {
           return res
         })
+      }
+    },
+    fetchIndex: {
+      type: PostIndexType,
+      resolve(_) {
+        return PostIndex
+          .find({})
+          .then(res => {
+            return res[0]
+          })
       }
     },
     searchPosts: {

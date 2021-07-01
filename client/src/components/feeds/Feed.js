@@ -1,21 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mongoose from 'mongoose';
-import dateAndTime from 'date-and-time';
 import { useQuery, useApolloClient } from '@apollo/client';
 import PostUpdateOrShow from '../posts/types/showOrUpdate/PostUpdateOrShow';
+import NavBar from '../sections/Nav_Bar';
 import Cookies from 'js-cookie';
 import Queries from '../../graphql/queries';
 import FeedUtil from '../posts/util/functions/feed_util.js';
 import PostShowUtil from '../posts/util/functions/post_show_util.js';
-const { FETCH_FEED } = Queries;
+const { FETCH_FEED, FETCH_INDEX } = Queries;
 const { infiniteScroll, updateCacheInfScroll,
         handleData } = FeedUtil;
 const { handlePostClassName } = PostShowUtil;
 
 const Feed = ({
-  currentUser,
-  uploading,
-  setUploading,
   dashboardFeed,
   searchQuery,
   setSearchQuery,
@@ -29,6 +25,7 @@ const Feed = ({
   let gqlQuery = useRef(FETCH_FEED)
   let endOfPosts = useRef(false)
   let [update, setUpdate] = useState(false)
+  
   const client = useApolloClient();
   
   useEffect(() => {
@@ -60,90 +57,51 @@ const Feed = ({
         fetchPolicy: 'cache-and-network'
   })
 
+  let { loading: indexLoading, 
+        error: indexError, data: indexData } = useQuery(FETCH_INDEX, {
+          fetchPolicy: 'cache-and-network'
+        })
+
   useEffect(() => {
    
     return () => {
       refetch()
     }
-  }, [])
+  }, [refetch])
 
-  if (feedLoading) return '';
-  if (feedError) return `Error: ${feedError}`;
+  if (feedLoading || indexLoading) return '';
+  if (feedError || indexError) return `Error: ${feedError} ${indexError}`;
   
-  handleData(
-    results && searchQuery ? results : feed, 
-    feedArr, 
-    cursorId,
-    endOfPosts
-  )
-
-  const resultsDropDown = () => {
-    if (results && searchQuery) {
-      return (
-        <div
-          className='resultsDD'
-        >
-          {results.searchPosts.map(obj => {
-            return (
-              <div
-                key={obj._id}
-                className='titleAndDateContainer'
-              >
-                <h1>{obj.title}</h1>
-                <span
-                  hidden
-                >{obj._id}</span>
-                <h3>
-                  {
-                    dateAndTime.format(
-                      mongoose.Types.ObjectId(obj._id).getTimestamp(), 
-                      'dddd, MMMM DD YYYY'
-                    )
-                  }
-                </h3>
-              </div>
-            )
-          })}
-        </div>
-      )
-    }
+  if (dashboardFeed) {
+    handleData(
+      results && searchQuery ? results : feed, 
+      feedArr, 
+      cursorId,
+      endOfPosts
+    )
+  } else {
+    handleData(
+      feed, 
+      feedArr, 
+      cursorId,
+      endOfPosts
+    )
   }
+
+ 
 
   return(
     <div
     className='blogFeed'
     >
-      <div
-        className='searchAndIndexNav'
-      >
-        <div
-          className='searchInput'
-        >
-          <input
-            placeholder='search posts'
-            className='searchInput'
-            value={searchQuery}
-            onChange={e => {
-              setSearchQuery(searchQuery = e.target.value)
-            }}
-          />
-
-          {resultsDropDown()}
-        </div>
-
-        <div
-          className='postIndex'
-        >
-          <span
-            onClick={() => {
-
-            }}
-          >
-            Post Index
-          </span>
-
-        </div>
-      </div>
+      
+      <NavBar 
+        dashboardFeed={dashboardFeed}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        results={results}
+        indexData={indexData}
+      />
 
       {feedArr.current.map((obj, i) => {
         return (

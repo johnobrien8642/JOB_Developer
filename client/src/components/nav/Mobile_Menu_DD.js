@@ -20,17 +20,7 @@ const MobileMenuDD = ({
 }) => {
   let cursorId = useRef(new Date().getTime())
 
-  useEffect(() => {
-    if (!menuOpen || menuOpen) {
-      window.scrollTo(0, scrollYRef2.current)
-    }
-
-    //eslint-disable-next-line
-    return () => {
-      refetch()
-    }
-  }, [menuOpen, settingsOpen, scrollYRef2])
-
+  
   let { data, refetch } = useQuery(FETCH_ACTIVITY_COUNTS, {
     variables: {
       query: Cookies.get('currentUser'),
@@ -38,6 +28,17 @@ const MobileMenuDD = ({
     },
     pollInterval: 10000
   })
+
+  useEffect(() => {
+    if (!menuOpen || menuOpen) {
+      window.scrollTo(0, scrollYRef2.current)
+    }
+
+    return () => {
+      refetch()
+    }
+    //eslint-disable-next-line
+  }, [refetch, menuOpen, settingsOpen, scrollYRef2])
 
   const { user } = userDetailsCounts;
 

@@ -9,31 +9,270 @@
   }
 
   .blogFeed, .singlePostShow {
+    position: relative;
     width: 700px;
     margin: 50px auto;
+    z-index: 95;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+  
+      @media(min-width: 280px) {
+        width: 280px;
+      }
+  
+      @media(min-width: 320px) {
+        width: 320px;
+      }
+  
+      @media(min-width: 360px) {
+        width: 360px;
+      }
+  
+      @media(min-width: 375px) {
+        width: 375px;
+      }
+  
+      @media(min-width: 410px) {
+        width: 411px;
+      }
+  
+      @media(min-width: 413px) {
+        width: 414px;
+      }
+  
+      @media(min-width: 540px) {
+        width: 540px;
+      }
+  
+      @media(min-width: 768px) {
+        width: 500px;
+      }
+  
+      @media(min-width: 1020px) {
+        // margin: 0 20px 0 auto;
+        // width: 870px;
+      }
+    }
+
+    .postIndex {
+      display: flex;
+      position: relative;
+      margin: 0 5px 0 8px;
+      font-size: 20px;
+      font-weight: 500;
+
+      @media (max-width: 1024px) {
+        font-size: 18px;
+        // margin: 10px 0 10px 10px;
+        // width: 80%;
+
+        @media (max-width: 280px) {
+          // margin-left: 0px;
+          font-size: 15px;
+        }
+      }
+
+      span {
+        display: block;
+        margin: auto;
+        white-space: nowrap;
+        width: fit-content;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .indexDDContainer {
+        position: absolute;
+        top: 33px;
+        width: 300px;
+        height: 300px;
+        background-color: white;
+        border: 1px solid rgb(0, 0, 0, 0.5);
+        overflow: auto;
+
+        @media (max-width: 1024px) {
+          width: 90vw;
+
+          @media (max-width: 280px) {
+            // margin-left: 0px;
+            // font-size: 15px;
+          }
+        }
+
+        .yearRow {
+          font-size: 20px;
+          width: fit-content;
+          margin: 10px 0 5px 10px;
+        }
+
+        .monthRow {
+          font-size: 20px;
+          font-weight: 300;
+          margin: 0 0 5px 13px;
+
+          .postRow {
+            margin: 8px 0 8px 5px;
+            width: 100%;
+            border-top: 1px solid rgb(0, 0, 0, 0.5);
+
+            a {
+              display: block;
+              width: fit-content;
+              font-size: 20px;
+              font-weight: 400;
+              margin: 5px 0 5px 5px; 
+            }
+
+            span {
+              font-size: 15px;
+              margin-left: 5px;
+            }
+          }
+        }
+      }  
+    }
 
     .searchAndIndexNav {
       display: flex;
       position: fixed;
       top: 0px;
       left: 0px;
-      background-color: red;
       width: 100%;
-
+      border-bottom: 1px solid rgb(0, 0, 0, 0.5);
+      background-color: white;
+      z-index: 98;
+      
       .searchInput {
-        // background-color: blue;
-        font-size: 20px;
+        font-size: 18px;
         padding: 3px 5px;
-        width: 400px;
-  
-        .resultsDD {
+        margin: 4px 0 4px 15px;
+        width: 300px;
 
+        @media (max-width: 1024px) {
+          width: 90%;
+          
+          @media (max-width: 980px) {
+            margin: 0;
+          }
+
+          @media (max-width: 280px) {
+            font-size: 15px;
+          }
+        }
+        
+        .resultsDD {
+          position: absolute;
+          width: 300px;
+          height: 300px;
+          top: 33px;
+          // transform: translateX(-25%);
+          border: 1px solid rgb(0, 0, 0, 0.5);
+          background-color: white;
+          overflow: auto;
+          z-index: 90;
+          
+          @media (max-width: 980px) {
+            left: 0;
+            width: 95vw;
+            
+        
+            @media(min-width: 280px) {
+              
+            }
+        
+            @media(min-width: 320px) {
+              
+            }
+        
+            @media(min-width: 360px) {
+              
+            }
+        
+            @media(min-width: 375px) {
+              
+            }
+        
+            @media(min-width: 410px) {
+              
+            }
+        
+            @media(min-width: 413px) {
+              
+            }
+        
+            @media(min-width: 540px) {
+              
+            }
+        
+            @media(min-width: 768px) {
+              
+            }
+          }
+
+
+
+          .titleAndDateContainer {
+            border-top: 1px solid rgb(0, 0, 0, 0.5);
+            margin-top: 10px;
+
+            &:first-child {
+              margin-top: 3px;
+              border: none;
+            }
+            
+            h1 {
+              display: block;
+              font-family: var(--font);
+              font-size: 20px;
+              font-weight: 400;
+              margin: 10px 0 10px 5px;
+            }
+
+            h3 {
+              display: block;
+              font-size: 15px;
+              font-weight: 300;
+              margin-left: 5px;
+            }
+          }
         }
       }
 
-      .postIndex {
-        background-color: blue;
-      
+      .fullNameHomeLink {
+        display: block;
+        font-size: 20px;
+        font-weight: 500;
+        width: fit-content;
+        height: fit-content;
+        white-space: nowrap;
+        margin: auto 20px auto auto;
+
+        @media (max-width: 980px) {
+          display: none;
+        }
+      }
+
+      .homeLink {
+        display: none;
+        font-size: 20px;
+        font-weight: 500;
+        height: fit-content;
+        margin: auto 20px auto auto;
+        padding-left: 10px;
+        border-left: 1px solid rgb(0, 0, 0, 0.5);
+
+
+        @media (max-width: 980px) {
+          display: block;
+          font-size: 18px;
+  
+          @media (max-width: 280px) {
+            font-size: 15px;
+          }
+        }
       }
     }
 
@@ -46,6 +285,14 @@
       border-top: 1px solid rgb(0, 0, 0, 0.2);
       margin: 150px 0;
 
+      @media (max-width: 980px) {
+        margin: 50px 0;
+
+        @media (max-width: 280px) {
+
+        }
+      }
+
       .titleAndDateContainer {
 
         a {
@@ -54,12 +301,20 @@
           font-weight: 500;
           margin: 15px 0;
           width: fit-content;
+
+          @media (max-width: 1024px) {
+            margin-left: 10px;
+          }
         }
 
         h3 {
           font-size: 20px;
           font-weight: 300;
           margin: 0 0 15px 5px;
+
+          @media (max-width: 1024px) {
+            margin-left: 10px;
+          }
         }
       }
 
@@ -68,6 +323,10 @@
         font-size: 25px;
         line-height: 35px;
         text-align: justify;
+
+        @media (max-width: 1024px) {
+          margin: 0 10px;
+        }
       }
 
       .descriptionImgContainer {

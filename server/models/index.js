@@ -10,6 +10,7 @@ import Repost from './posts/util/Repost.js';
 import RepostCaption from './posts/util/RepostCaption.js'
 import Follow from './posts/util/Follow.js';
 import Post from './posts/types/Post.js';
+import PostIndex from './posts/PostIndex.js';
 import TextPost from './posts/types/TextPost.js';
 import PhotoPost from './posts/types/PhotoPost.js';
 import QuotePost from './posts/types/QuotePost.js';

@@ -21,9 +21,8 @@ const Contact = () => {
           className='emailContainer'
         >
           <h2>Email</h2>
-          <div>
-            <span>johnobriendeveloper@gmail.com</span>
             <div>
+              <span>johnobriendeveloper@gmail.com</span>
               <img
                 className='copyClipboard'
                 alt='copy clipboard'
@@ -55,7 +54,6 @@ const Contact = () => {
                 Copied
               </div>
             </div>
-          </div>
         </div>
 
         <div

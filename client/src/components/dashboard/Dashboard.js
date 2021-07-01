@@ -27,7 +27,7 @@ const Dashboard = () => {
         }
       })
     }
-  }, [searchQuery])
+  }, [searchQuery, searchPosts])
 
 
   return (

@@ -209,6 +209,15 @@ const Queries = {
       }
     }
   `,
+  FETCH_INDEX: gql`
+    query FetchIndex {
+      fetchIndex {
+        _id
+        indexDDObj
+        hookBoolObj
+      }
+    }
+  `,
   FETCH_TAG: gql`
     query FetchTag($query: String) {
       tag(query: $query) {

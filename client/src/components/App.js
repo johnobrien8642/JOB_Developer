@@ -1,19 +1,9 @@
 import React, { useEffect } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
-import Nav from '../components/nav/Nav';
 import Dashboard from './dashboard/Dashboard';
 import Login from '../components/auth/Login';
-import Register from './auth/Register';
-import TagFeed from './feeds/Tag_Feed';
-import UserPostLikesFeed from './feeds/User_Post_Likes_Feed';
-import UserBlogShow from './feeds/User_Blog_Show';
-import UserPostShow from './feeds/User_Post_Show';
-import UserFollowersOrFollowingOrActivityFeed from './feeds/User_Followers_Or_Following_Or_Activity_Feed';
-import UserSettings from './user/User_Settings';
-import Discover from './nav/Discover';
 import AuthRoute from '../util/route_util';
-import Feed from './feeds/Feed';
 import BlogFeed from './sections/Blog_Feed';
 import LandingPage from './sections/Landing_Page';
 import EditPost from './sections/Edit_Post';

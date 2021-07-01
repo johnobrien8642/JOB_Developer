@@ -3,9 +3,9 @@ import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import AudioPlayer from 'react-h5-audio-player';
 import ReactPlayer from 'react-player';
-import UserResult from '../../../search/resultTypes/User_Result';
+// import UserResult from '../../../search/resultTypes/User_Result';
 import ProfilePic from '../../../user/util/components/Profile_Pic';
-import FollowButton from '../../../posts/util/components/social/Follow_Button';
+// import FollowButton from '../../../posts/util/components/social/Follow_Button';
 
 const postHeader = (
   post, 

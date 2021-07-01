@@ -22,11 +22,11 @@ const BlogFeed = () => {
         variables: { 
           query: { 
             string: searchQuery 
-          } 
+          }
         }
       })
     }
-  }, [searchQuery])
+  }, [searchQuery, searchPosts])
 
   return (
     <div

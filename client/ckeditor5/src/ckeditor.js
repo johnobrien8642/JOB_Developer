@@ -4,6 +4,7 @@
  */
 import BalloonEditor from '@ckeditor/ckeditor5-editor-balloon/src/ballooneditor.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
+import Markdown from '@ckeditor/ckeditor5-markdown-gfm';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
@@ -17,6 +18,7 @@ class Editor extends BalloonEditor {}
 // Plugins to include in the build.
 Editor.builtinPlugins = [
 	BlockQuote,
+	Markdown,
 	Bold,
 	Essentials,
 	Italic,

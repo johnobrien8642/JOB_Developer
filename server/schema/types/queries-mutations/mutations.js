@@ -21,9 +21,12 @@ import { GraphQLJSONObject } from 'graphql-type-json';
 const { deletePost, 
         asyncDeleteAllPosts, 
         asyncDeleteAllActivityAndProfilePic,
-        handleS3Cleanup, handles3AndObjectCleanup } = DeleteFunctionUtil;
+        handleS3Cleanup, 
+        handles3AndObjectCleanup,
+        handleUpdateIndex } = DeleteFunctionUtil;
 
 const Post = mongoose.model('Post');
+const PostIndex = mongoose.model('PostIndex');
 const User = mongoose.model('User');
 const Tag = mongoose.model('Tag');
 const Repost = mongoose.model('Repost');
@@ -99,12 +102,18 @@ const mutation = new GraphQLObjectType({
         post: { type: GraphQLJSONObject }
       },
       resolve(_, { post }) {
-        return deletePost(
-          post,
-          s3Client,
-          keys,
-          handles3AndObjectCleanup
-        )
+        return PostIndex.find({})
+          .then(index => {
+            return deletePost(
+              post,
+              index[0],
+              s3Client,
+              keys,
+              handles3AndObjectCleanup,
+              handleUpdateIndex
+            )
+          })
+
       }
     },
     likePost: {

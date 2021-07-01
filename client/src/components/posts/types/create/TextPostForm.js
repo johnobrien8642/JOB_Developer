@@ -1,33 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { useHistory, useLocation, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import randomstring from 'randomstring';
 import Cookies from 'js-cookie';
-import Scroll from 'react-scroll';
 
 import TextPostInput from '../../util/components/forms/inputTypes/Text_Post_Input'
 import BodyImageAndText from '../../util/components/forms/Body_Image_And_Text'
 
-import Queries from '../../../../graphql/queries.js';
 import Mutations from '../../../../graphql/mutations.js';
 import PostFormUtil from '../../util/functions/post_form_util.js';
-import UpdateCacheUtil from '../../util/functions/update_cache_util.js';
-const Element = Scroll.Element;
 const { bodyPost, handleFormData,
         stripAllImgs, handleUploadedFiles,
         resetDisplayIdx,
         handleAllTextTextPost,
         preventScroll,
         allowScroll } = PostFormUtil;
-const { postCreate } = UpdateCacheUtil;
-const { FETCH_FEED } = Queries;
 const { CREATE_OR_UPDATE_POST } = Mutations;
 
 const TextPostForm = ({
   post,
   update,
   mainForm,
-  setUpdate,
   textPostActive,
   dashboardFeed
 }) => {
@@ -40,9 +33,7 @@ const TextPostForm = ({
   let allText = useRef('');
   let [errMessage, setErrMessage] = useState('');
   let [render, setRender] = useState(0);
-  let [success, setSuccess] = useState(false);
   let history = useHistory();
-  let location = useLocation();
   const formId = 'textPostForm'
   const formInputId = 'textPostInput'
 
@@ -59,13 +50,7 @@ const TextPostForm = ({
   let [createOrUpdatePost] = useMutation(CREATE_OR_UPDATE_POST, {
     onCompleted() {
       resetInputs();
-      
-      if (post) {
-        history.push('/dashboard')
-      } else {
-        allowScroll(document)
-        history.push('/')
-      }
+      history.push('/')
     },
     onError(error) {
       console.log(error)
@@ -121,20 +106,12 @@ const TextPostForm = ({
   const disabledBool = () => {
     return !title && body.current.length === 0 && !description && (update && mainForm)
   }
-
-  const handleSuccessMsg = () => {
-    if (success) {
-      return <div className='success'>Success</div>
-    }
-  }
   
   if (textPostActive || update) {
     return (
     <div
       className={update ? 'postFormContainer update' : 'postFormContainer'}
     >
-
-      {handleSuccessMsg()}
 
       <div
         className={'postform textPostForm'}

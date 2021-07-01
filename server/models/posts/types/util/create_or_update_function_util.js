@@ -256,6 +256,43 @@ const markModified = (instance, update) => {
   }
 }
 
+const handleUpdateIndex = (index, instance) => {
+  
+  var instYear = dateAndTime.format(
+    mongoose.Types.ObjectId(instance._id).getTimestamp(),
+    'YYYY'
+  )
+
+  var instMonth = dateAndTime.format(
+    mongoose.Types.ObjectId(instance._id).getTimestamp(),
+    'MMMM'
+  )
+
+  if (!index.indexDDObj.hasOwnProperty(instYear)) {
+    index.indexDDObj[instYear] = {}
+    index.hookBoolObj[instYear] = {}
+    // index.hookBoolObj['years'] = { [`${instYear}`]: false }
+    index.hookBoolObj['years'] = {}
+  }
+
+  if (!index.indexDDObj[instYear].hasOwnProperty(instMonth)) {
+    index.indexDDObj[instYear][instMonth] = []
+    index.hookBoolObj[instYear][instMonth] = false
+  }
+
+  var indexObj = {
+    _id: instance._id,
+    title: instance.title
+  }
+
+  index.indexDDObj[instYear][instMonth].push(indexObj)
+  index.hookBoolObj[instYear][instMonth] = false
+  index.hookBoolObj['years'][instYear] = false
+
+  index.markModified('indexDDObj')
+  index.markModified('hookBoolObj')
+}
+
 const handleVariants = async (variants, instance, user) => {
 
   switch(instance.kind) {
@@ -334,7 +371,8 @@ const handleAllText = (allText, instance) => {
 }
 
 const CreateFunctionUtil = {
-  getTagArr, asyncTag,
+  getTagArr, 
+  asyncTag,
   findOrCreateTag,
   handleMentions,
   asyncMention,
@@ -357,6 +395,7 @@ const CreateFunctionUtil = {
   pushMentions,
   markModified,
   handleVariants,
+  handleUpdateIndex,
   createInstance,
   resetFoundPost,
   handleAllText

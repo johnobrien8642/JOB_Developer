@@ -1,53 +1,24 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import mongoose from 'mongoose';
 import { Link } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/client';
-import Cookies from 'js-cookie';
-import dateAndTime from 'date-and-time';
-import Scroll from 'react-scroll';
-
-import PostNotes from '../../util/components/social/Post_Notes.js';
-import PostOptions from '../../util/components/social/Post_Options.js';
+import { useMutation } from '@apollo/client';
+import dateAndTime from 'date-and-time'
 
 import PostShowUtil from '../../util/functions/post_show_util.js';
 import Queries from '../../../../graphql/queries';
 import Mutations from '../../../../graphql/mutations';
-import PostFormUtil from '../../util/functions/post_form_util.js';
 import UpdateCacheUtil from '../../util/functions/update_cache_util.js';
-const { postHeader, postBody, repostFooter, postTags } = PostShowUtil;
-const { allowScroll, preventScroll } = PostFormUtil;
+const { postBody } = PostShowUtil;
 const { postDelete } = UpdateCacheUtil;
 const { FETCH_FEED } = Queries;
 const { DELETE_POST } = Mutations;
-const scroller = Scroll.scroller;
-
 
 const PostShow = ({ 
   post, 
-  repostFormBool,
-  update, 
-  setUpdate,
-  toggleUpdate,
-  discover, 
-  radar,
-  repostCaption,
-  setRepostCaption,
   dashboardFeed
 }) => {
-  let [notesActive, setNotesActive] = useState(false);
-  let [repostActive, setRepostActive] = useState(false);
   let [confirmDelete, setConfirmDelete] = useState(false);
   let [copySuccess, setCopySuccess] = useState(false);
-  let doesUserFollowUserRef = useRef(false);
-
-  useEffect(() => {
-    if (confirmDelete) {
-
-      preventScroll(confirmDelete, document)
-
-    }
-    
-  }, [confirmDelete])
 
   let [deletePost] = useMutation(DELETE_POST, {
     update(client) {
@@ -57,54 +28,6 @@ const PostShow = ({
       )
     }
   })
-
-  // let { loading, error, data } = useQuery(FETCH_LIKES_REPOSTS_AND_COMMENTS, {
-  //   variables: {
-  //     postId: post._id
-  //   }
-  // })
-
-  const toggleNotes = () => {
-    if (notesActive) {
-      setNotesActive(notesActive = false)
-    } else {
-      setNotesActive(notesActive = true)
-    }
-  }
-
-  const notesAndOptions = () => {
-    if (!repostFormBool) {
-      return (
-        <div>
-
-        </div>
-        // <React.Fragment>
-        //   <PostNotes
-        //     post={post}
-        //     notesCount={data.fetchLikesRepostsAndComments.length}
-        //     notes={data.fetchLikesRepostsAndComments}
-        //     notesActive={notesActive}
-        //     setNotesActive={setNotesActive}
-        //   />
-      
-        //   <PostOptions
-        //     post={post}
-        //     notesCount={data.fetchLikesRepostsAndComments.length}
-        //     notesActive={notesActive}
-        //     setNotesActive={setNotesActive}
-        //     toggleNotes={toggleNotes}
-        //     update={update}
-        //     setUpdate={setUpdate}
-        //     toggleUpdate={toggleUpdate}
-        //     repostActive={repostActive}
-        //     setRepostActive={setRepostActive}
-        //     confirmDelete={confirmDelete}
-        //     setConfirmDelete={setConfirmDelete}
-        //   />
-        // </React.Fragment>
-      )
-    }
-  }
 
   const renderConfirmDelete = () => {
     if (confirmDelete) {
@@ -120,7 +43,6 @@ const PostShow = ({
               <button
                 className='cancelBtn'
                 onClick={() => {
-                  allowScroll(document)
                   setConfirmDelete(confirmDelete = false)
                 }}
               >
@@ -129,8 +51,7 @@ const PostShow = ({
 
               <button
                 className='deleteBtn'
-                onClick={e => {
-                  allowScroll(document)
+                onClick={() => {
                   deletePost({
                     variables: {
                       post: post
@@ -147,9 +68,6 @@ const PostShow = ({
       )
     }
   }
-
-  // if (loading) return 'Loading...';
-  // if (error) return `Error: ${error}`
   
   if (dashboardFeed) {
     return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { useLocation, Link, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 import Mutations from '../../graphql/mutations'
