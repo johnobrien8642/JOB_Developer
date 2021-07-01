@@ -29,7 +29,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = new HttpLink({
-  uri: `http://localhost:${port}/graphql`
+  uri: `https://job-developer-presentation-tkor8.ondigitalocean.app/graphql`
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
