@@ -45,6 +45,28 @@ const NavBar = ({
     }
   }
 
+  const handleNavLinks = () => {
+    if (!dashboardFeed) {
+      return (
+        <React.Fragment>
+          <Link
+            className='fullNameHomeLink'
+            to='/'
+          >
+            John O'Brien Developer
+          </Link>
+
+          <Link
+            className='homeLink'
+            to='/'
+          >
+            Home
+          </Link>
+        </React.Fragment>
+      )
+    }
+  }
+
   return (
     <div
       className='searchAndIndexNav'
@@ -90,20 +112,8 @@ const NavBar = ({
         {resultsDropDown()}
       </div>
 
-
-      <Link
-        className='fullNameHomeLink'
-        to='/'
-      >
-        John O'Brien Developer
-      </Link>
-
-      <Link
-        className='homeLink'
-        to='/'
-      >
-        Home
-      </Link>
+      {handleNavLinks()}
+      
     </div>
   )
 }
