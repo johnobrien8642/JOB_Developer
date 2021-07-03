@@ -9,7 +9,7 @@
     "client": "npm start --prefix client",
     "server": "nodemon index.js",
     "dev": "NODE_ENV=development concurrently \"npm run server\" \"npm run client\"",
-    "build": "npm install && cd client npm install && cd ckeditor5 npm install",
+    "build": "npm install --only=dev && cd client && npm run build && cd ckeditor5 && npm install && npm prune --production",
     "digitalocean-postbuild": "cd client npm run build && cd ckeditor5 npm run build"
   },
   "repository": {
