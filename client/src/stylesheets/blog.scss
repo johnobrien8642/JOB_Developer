@@ -349,10 +349,16 @@
         .toTheTop {
           text-decoration: underline;
           font-size: 22px;
+          cursor: pointer;
         }
 
         .goToSection {
           text-decoration: underline;
+          cursor: pointer;
+        }
+
+        h3 {
+          font-size: 30px;
         }
 
         @media (max-width: 1024px) {
