@@ -30,8 +30,6 @@ const register = async (data, ctx) => {
     }
   )
 
-  console.log(user)
-
   const token = await jwt.sign({ _id: user._id }, keys.secretOrKey)
   
   return user.save().then(user => {

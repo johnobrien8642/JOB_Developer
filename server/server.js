@@ -41,7 +41,7 @@ cronPostNotesHeat.start()
 cronUserPostingHeat.start()
 
   
-app.use(express.json())
+app.use(express.json({ limit: '50mb' }))
 app.use('/api/posts', posts);
 app.use('/api/mailer', mailer);
 app.use(expressCspHeader({

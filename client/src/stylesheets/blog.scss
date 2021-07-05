@@ -324,6 +324,37 @@
         line-height: 35px;
         text-align: justify;
 
+        .inPostIndex {
+          margin-top: 10px;
+          
+          li {
+            list-style-type: disc;
+            list-style-position: inside;
+            font-size: 17px;
+            text-decoration: underline;
+            line-height: 27px;
+            margin-left: 15px;
+            cursor: pointer;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+
+        a {
+          text-decoration: underline;
+        }
+
+        .toTheTop {
+          text-decoration: underline;
+          font-size: 22px;
+        }
+
+        .goToSection {
+          text-decoration: underline;
+        }
+
         @media (max-width: 1024px) {
           margin: 0 10px;
         }
