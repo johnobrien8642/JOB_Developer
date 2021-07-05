@@ -17,7 +17,6 @@ const { IS_LOGGED_IN } = Queries;
 const { VERIFY_USER } = Mutations;
 
 const token = Cookies.get('auth-token');
-const port = process.env.PORT || 5000;
 
 const authLink = setContext((_, { headers }) => {
   return {

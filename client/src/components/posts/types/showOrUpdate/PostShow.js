@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import mongoose from 'mongoose';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import dateAndTime from 'date-and-time'
 
+import SmoothScrollUtil from '../../util/functions/smooth_scroll_util.js';
 import PostShowUtil from '../../util/functions/post_show_util.js';
 import Queries from '../../../../graphql/queries';
 import Mutations from '../../../../graphql/mutations';
 import UpdateCacheUtil from '../../util/functions/update_cache_util.js';
 const { postBody } = PostShowUtil;
 const { postDelete } = UpdateCacheUtil;
+const { handleAllSmoothScrollLinksAndEls,
+        handleRemoveEventHandlers,
+        handleCollectSSLinkNodeNames,
+        handleToTheTopListeners,
+        handleGoToSectionListeners } = SmoothScrollUtil;
 const { FETCH_FEED } = Queries;
 const { DELETE_POST } = Mutations;
 
@@ -19,6 +25,20 @@ const PostShow = ({
 }) => {
   let [confirmDelete, setConfirmDelete] = useState(false);
   let [copySuccess, setCopySuccess] = useState(false);
+
+  useEffect(() => {
+    var nodeNameAttrStringArr = handleCollectSSLinkNodeNames(post)
+    
+    var backToTopListenerArr = handleToTheTopListeners(post)
+    var goToSectionListenerArr = handleGoToSectionListeners()
+    var listenerArr = handleAllSmoothScrollLinksAndEls(nodeNameAttrStringArr, post)
+
+    return () => {
+      handleRemoveEventHandlers(goToSectionListenerArr)
+      handleRemoveEventHandlers(backToTopListenerArr)
+      handleRemoveEventHandlers(listenerArr)
+    }
+  }, [post])
 
   let [deletePost] = useMutation(DELETE_POST, {
     update(client) {

@@ -11,7 +11,7 @@ const IndexDD = ({
 }) => {
   let copy = JSON.parse(JSON.stringify(index))
   let [indexBools, setIndexBools] = useState(copy.hookBoolObj)
-  console.log(copy)
+  
   const handlePostRows = (month, indexYearObj, hidePosts) => {
     if (hidePosts) {
       return indexYearObj[month].map(post => {
@@ -43,70 +43,162 @@ const IndexDD = ({
     }
   }
   
-  const handleMonthRows = (year, indexYearObj, hideMonths) => {
+  const handleMonthRows = (
+    year, 
+    indexMonthObj, 
+    hideMonths, 
+    indexBools, 
+    setIndexBools
+  ) => {
+    var keys = Object.keys(indexMonthObj)
+
     if (hideMonths) {
-      for (var month in indexYearObj) {
-        return (
-          <div
-            className='monthRow'
-            key={hash({ year: month })}
-          >
-            <div
-              onClick={e => {
-                e.stopPropagation()
+      return (
+        <React.Fragment>
+          {keys.map(month => {
+            return (
+              <div
+                className='monthRow'
+                key={hash({ year: month })}
+              >
+                <div
+                  onClick={e => {
+                    e.stopPropagation()
+    
+                    if (!indexBools[year][month]) {
+                      var obj = {...indexBools}
+                      obj[year][month] = true
+                      setIndexBools(indexBools = obj)
+                    } else {
+                      var obj2 = {...indexBools}
+                      obj2[year][month] = false
+                      setIndexBools(indexBools = obj2)
+                    }
+                  }}
+                >
+                  {month}
+                </div>
+    
+                {handlePostRows(month, indexMonthObj, indexBools[year][month])}
+    
+              </div>
+            )
+          })}
+        </React.Fragment>
+      )
 
-                if (!indexBools[year][month]) {
-                  var obj = {...indexBools}
-                  obj[year][month] = true
-                  setIndexBools(indexBools = obj)
-                } else {
-                  var obj = {...indexBools}
-                  obj[year][month] = false
-                  setIndexBools(indexBools = obj)
-                }
-              }}
-            >
-              {month}
-            </div>
+      // for (let month in indexMonthObj) {
+      //   return (
+      //     <div
+      //       className='monthRow'
+      //       key={hash({ year: month })}
+      //     >
+      //       <div
+      //         onClick={e => {
+      //           e.stopPropagation()
 
-            {handlePostRows(month, indexYearObj, indexBools[year][month])}
+      //           if (!indexBools[year][month]) {
+      //             var obj = {...indexBools}
+      //             obj[year][month] = true
+      //             setIndexBools(indexBools = obj)
+      //           } else {
+      //             var obj2 = {...indexBools}
+      //             obj2[year][month] = false
+      //             setIndexBools(indexBools = obj2)
+      //           }
+      //         }}
+      //       >
+      //         {month}
+      //       </div>
 
-          </div>
-        )
-      }
+      //       {handlePostRows(month, indexMonthObj, indexBools[year][month])}
+
+      //     </div>
+      //   )
+      // }
     } else {
       return <React.Fragment/>
     }
   }
 
-  const handleDD = () => {
-    for (var year in copy.indexDDObj) {
-      return (
-        <div
-          key={year}
-          onClick={() => {
-            if (!indexBools['years'][year]) {
-              var obj = {...indexBools}
-              obj['years'][year] = true
-              setIndexBools(indexBools = obj)
-            } else {
-              var obj = {...indexBools}
-              obj['years'][year] = false
-              setIndexBools(indexBools = obj)
-            }
-          }}
-        >
-          <div
-            className='yearRow'
-          >
-            {year}
-          </div>
+  const handleDD = (indexBools, setIndexBools, copy) => {
+    var keys = Object.keys(copy.indexDDObj)
 
-          {handleMonthRows(year, copy.indexDDObj[year], indexBools['years'][year])}
+    return (
+      <React.Fragment>
+        {keys.map(year => {
+          return (
+            <div
+              key={year}
+              onClick={() => {
+                if (!indexBools['years'][year]) {
+                  var obj = {...indexBools}
+                  obj['years'][year] = true
+                  setIndexBools(indexBools = obj)
+                } else {
+                  var obj2 = {...indexBools}
+                  obj2['years'][year] = false
+                  setIndexBools(indexBools = obj2)
+                }
+              }}
+            >
+              <div
+                className='yearRow'
+              >
+                {year}
+              </div>
 
-        </div>
-      )
-    }
+              {
+                handleMonthRows(
+                  year, 
+                  copy.indexDDObj[year],
+                  indexBools['years'][year], 
+                  indexBools, 
+                  setIndexBools
+                )
+              }
+
+            </div>
+          )
+        })}
+      </React.Fragment>
+    )
+
+    // for (let year in copy.indexDDObj) {
+    //   return (
+    //     <div
+    //       key={year}
+    //       onClick={() => {
+    //         if (!indexBools['years'][year]) {
+    //           var obj = {...indexBools}
+    //           obj['years'][year] = true
+    //           setIndexBools(indexBools = obj)
+    //         } else {
+    //           var obj2 = {...indexBools}
+    //           obj2['years'][year] = false
+    //           setIndexBools(indexBools = obj2)
+    //         }
+    //       }}
+    //     >
+    //       <div
+    //         className='yearRow'
+    //       >
+    //         {year}
+    //       </div>
+
+    //       {
+    //         handleMonthRows(
+    //           year, 
+    //           copy.indexDDObj[year],
+    //           indexBools['years'][year], 
+    //           indexBools, 
+    //           setIndexBools
+    //         )
+    //       }
+
+    //     </div>
+    //   )
+    // }
   }
 
   if (indexShow && !dashboardFeed) {
@@ -115,7 +207,7 @@ const IndexDD = ({
         className='indexDDContainer'
       >
 
-        {handleDD(setIndexBools, indexBools)}
+        {handleDD(indexBools, setIndexBools, copy)}
 
       </div>
     )

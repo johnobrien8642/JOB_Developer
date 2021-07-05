@@ -25,11 +25,20 @@ const BodyTextDnD = ({
   const editorConfiguration = {
     extraPlugins: [MentionCustomization],
     balloonToolbar: [
+      'heading',
       'bold',
       'italic',
       'underline',
       'link',
+      'fontSize',
+      'htmlEmbed',
+      'indent',
+      'mediaEmbed',
       'blockQuote',
+      'codeBlock',
+      'numberedList',
+      'bulletedList',
+      '|',
       'undo',
       'redo'
     ],

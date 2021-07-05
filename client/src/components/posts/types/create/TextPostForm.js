@@ -13,8 +13,7 @@ const { bodyPost, handleFormData,
         stripAllImgs, handleUploadedFiles,
         resetDisplayIdx,
         handleAllTextTextPost,
-        preventScroll,
-        allowScroll } = PostFormUtil;
+        preventScroll } = PostFormUtil;
 const { CREATE_OR_UPDATE_POST } = Mutations;
 
 const TextPostForm = ({

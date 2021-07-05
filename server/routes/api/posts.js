@@ -41,7 +41,7 @@ router.post('/images', upload.any(), async (req, res, next) => {
 
   function createImg(f, i) {
     let img = new Image({
-      src: 'http://d1k9pgunak0305.cloudfront.net/' + f.key,
+      src: 'https://d1k9pgunak0305.cloudfront.net/' + f.key,
       key: f.key,
       createdAt: Date.now(),
     })
@@ -51,7 +51,7 @@ router.post('/images', upload.any(), async (req, res, next) => {
   const promises = req.files.map((f, i) => createImg(f, i))
 
   Promise
-    .all(promises)
+    .all(promises)            
     .then(data => res.send(data))
     .catch(err => {
       console.log(`Error posts/api/images: ${err}`)
@@ -63,7 +63,7 @@ router.post('/audio', upload.any(), async (req, res, next) => {
   function createAudio(f) {
     if (f !== undefined) {
       let audio = new Audio({
-        url: 'http://d19o4ugsraxwa9.cloudfront.net/' + f.key,
+        url: 'https://d19o4ugsraxwa9.cloudfront.net/' + f.key,
         key: f.key,
         createdAt: Date.now()
       })
@@ -84,7 +84,7 @@ router.post('/video', upload.any(), async (req, res, next) => {
   function createVideo(req) {
     if (req.files) {
       let video = new Video({
-        url: 'http://d19o4ugsraxwa9.cloudfront.net/' + req.files[0].key,
+        url: 'https://d19o4ugsraxwa9.cloudfront.net/' + req.files[0].key,
         key: req.files[0].key,
         createdAt: Date.now()
       })
