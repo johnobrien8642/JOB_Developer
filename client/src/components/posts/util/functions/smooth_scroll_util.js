@@ -36,17 +36,16 @@ const handleToTheTopListeners = (post) => {
   return [arrayOfListeners, linkArr]
 }
 
-const handleGoToSectionListeners = () => {
+const handleGoToSectionListeners = (post) => {
   //eventually this needs to be dynamic. I've included numbers in words
   //in the classes of the elements as a first pass at somehow
   //making this dynamic
 
   var arrayOfListeners = []
   var linkArr = []
-  var linkNodeList = document.querySelectorAll(`.goToSection`)
-  var el = document.querySelector(`.arriveAtSection`)
+  var linkNodeList = document.querySelectorAll(`.goToSection${post._id}`)
+  var el = document.querySelector(`.arriveAtSection${post._id}`)
   
-  console.log(linkNodeList)
   if (linkNodeList) {
     linkArr = [...linkNodeList]
 
