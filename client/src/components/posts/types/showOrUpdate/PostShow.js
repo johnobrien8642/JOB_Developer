@@ -30,7 +30,7 @@ const PostShow = ({
     var nodeNameAttrStringArr = handleCollectSSLinkNodeNames(post)
     
     var backToTopListenerArr = handleToTheTopListeners(post)
-    var goToSectionListenerArr = handleGoToSectionListeners()
+    var goToSectionListenerArr = handleGoToSectionListeners(post)
     var listenerArr = handleAllSmoothScrollLinksAndEls(nodeNameAttrStringArr, post)
 
     return () => {
