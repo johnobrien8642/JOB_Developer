@@ -82,7 +82,7 @@ const createOrUpdatePost = ({
         if (update) {
           instance.updatedAt = Date.now()
         }
-        
+        console.log(instance)
         return Promise.all([instance.save(), index[0].save()]).then(
           ([instance, index])=> (instance)
         ) 

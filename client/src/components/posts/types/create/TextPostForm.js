@@ -88,7 +88,7 @@ const TextPostForm = ({
           descriptions: descriptions,
           descriptionImages: handleUploadedFiles(body, bodyUploads),
           user: Cookies.get('currentUser'),
-           kind: 'TextPost',
+          kind: 'TextPost',
           objsToClean: objsToClean.current,
           postId: post ? post._id : null
         }

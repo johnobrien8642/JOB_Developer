@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Scroll from 'react-scroll';
 import statics from '../../util/statics.js';
 
 const scroller = Scroll.scroller;
 
-const About = () => {
+const About = ({
+  drawAboutTriangleLeft
+}) => {
+
+  useEffect(() => {
+    drawAboutTriangleLeft();
+  })
+
 
   return (
     <div
@@ -98,6 +105,7 @@ const About = () => {
           complex problems.
         </p>
       </div>
+      <canvas id="aboutTriangleLeft"/>
     </div>
   )
 }
