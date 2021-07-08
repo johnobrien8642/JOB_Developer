@@ -98,6 +98,9 @@ const About = () => {
           complex problems.
         </p>
       </div>
+      <svg className="aboutTriangle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="100, 50 50, 100 100, 100" />
+      </svg>
     </div>
   )
 }
