@@ -6,13 +6,7 @@ import statics from '../../util/statics.js';
 const scroller = Scroll.scroller;
 
 const About = ({
-  drawAboutTriangleLeft
 }) => {
-
-  useEffect(() => {
-    drawAboutTriangleLeft();
-  })
-
 
   return (
     <div
