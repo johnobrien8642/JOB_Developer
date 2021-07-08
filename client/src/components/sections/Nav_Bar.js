@@ -71,7 +71,7 @@ const NavBar = ({
     <div
       className='searchAndIndexNav'
     >
-      <div
+      {/* <div
         className='postIndex'
         tabIndex={-1}
         onBlur={e => {
@@ -96,7 +96,7 @@ const NavBar = ({
           index={indexData.fetchIndex}
           dashboardFeed={dashboardFeed}
         />
-      </div>
+      </div> */}
 
       <div
         className='searchInput'
