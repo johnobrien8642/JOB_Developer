@@ -105,7 +105,6 @@ const About = ({
           complex problems.
         </p>
       </div>
-      <canvas id="aboutTriangleLeft"/>
     </div>
   )
 }
