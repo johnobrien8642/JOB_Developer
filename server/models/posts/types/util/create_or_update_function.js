@@ -64,7 +64,7 @@ const createOrUpdatePost = ({
       } else {
         var instance = createInstance(kind)
       }
-      
+  
       return handleVariants(variants, instance, user).then(() => {
 
         handleAllText(allText, instance)
