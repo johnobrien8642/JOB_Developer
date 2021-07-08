@@ -32,10 +32,11 @@ const About = ({
             <span>Backend</span>
           </div>
         </div>
-
+        
         <div
           className='introContainer'
         >
+
           <h1>Hi, I'm John O'Brien.</h1>
           <h2>I build beautiful, responsive web applications. Let's build something together.</h2>
 
@@ -99,6 +100,9 @@ const About = ({
           complex problems.
         </p>
       </div>
+      <svg className="aboutTriangle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="10,50 90,100 10,100" />
+      </svg>
     </div>
   )
 }
