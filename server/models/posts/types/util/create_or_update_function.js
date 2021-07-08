@@ -42,7 +42,7 @@ const createOrUpdatePost = ({
   
   var uploads = returnInstancesOnly(descriptionImages)
   var imageLinks = returnNewImageLinksOnly(descriptionImages)
-  
+  console.log(title)
   return Promise.all([
     updateUploadDispIdx(uploads, asyncUpdateUpload),
     createImagesFromLinks(imageLinks, asyncImageLink),
