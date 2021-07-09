@@ -27,15 +27,18 @@ const handlePostDelete = async (post) => {
 }
 
 const handleUpdateIndex = async (post, index) => {
+
   var instYear = dateAndTime.format(
     mongoose.Types.ObjectId(post._id).getTimestamp(),
     'YYYY'
   )
+
   var instMonth = dateAndTime.format(
     mongoose.Types.ObjectId(post._id).getTimestamp(),
     'MMMM'
   )
 
+  console.log(index)
   index.updatedAt = Date.now()
   
   if 
@@ -61,8 +64,11 @@ const handleUpdateIndex = async (post, index) => {
     delete index.indexDDObj[instYear][instMonth]
     delete index.hookBoolObj[instYear][instMonth]
   } else {
-    index.indexDDObj[instYear][instMonth] =
-    index.indexDDObj[instYear][instMonth].filter(obj => !obj._id.equals(post._id))
+    var newArr = 
+    index.indexDDObj[instYear][instMonth]
+      .filter(obj => post._id.toString() !== obj._id.toString())
+      
+    index.indexDDObj[instYear][instMonth] = newArr
   }
 
   index.markModified('indexDDObj')
@@ -175,7 +181,7 @@ const deletePost = async (
   ) => {
     
     return Promise.all([
-      // handleUpdateIndex(post, index),
+      handleUpdateIndex(post, index),
       handles3AndObjectCleanup(post.descriptionImages, s3Client, keys)
     ]).then(() => {
       handlePostDelete(post)
