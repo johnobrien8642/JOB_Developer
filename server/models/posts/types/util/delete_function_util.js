@@ -38,7 +38,6 @@ const handleUpdateIndex = async (post, index) => {
     'MMMM'
   )
 
-  console.log(index)
   index.updatedAt = Date.now()
   
   if 
