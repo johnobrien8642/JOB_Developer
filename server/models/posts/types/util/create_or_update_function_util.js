@@ -1,17 +1,18 @@
 import mongoose from 'mongoose';
 import dateAndTime from 'date-and-time';
 
-const TextPost = mongoose.model('TextPost')
-const PhotoPost = mongoose.model('PhotoPost')
-const QuotePost = mongoose.model('QuotePost')
-const LinkPost = mongoose.model('LinkPost')
-const ChatPost = mongoose.model('ChatPost')
-const AudioPost = mongoose.model('AudioPost')
-const VideoPost = mongoose.model('VideoPost')
-const Tag = mongoose.model('Tag')
-const User = mongoose.model('User')
-const Mention = mongoose.model('Mention')
-const Image = mongoose.model('Image')
+const TextPost = mongoose.model('TextPost');
+const PhotoPost = mongoose.model('PhotoPost');
+const QuotePost = mongoose.model('QuotePost');
+const LinkPost = mongoose.model('LinkPost');
+const ChatPost = mongoose.model('ChatPost');
+const AudioPost = mongoose.model('AudioPost');
+const VideoPost = mongoose.model('VideoPost');
+const Tag = mongoose.model('Tag');
+const User = mongoose.model('User');
+const Mention = mongoose.model('Mention');
+const Image = mongoose.model('Image');
+const PostIndex = mongoose.model('PostIndex');
 
 //create instance
 
@@ -256,41 +257,45 @@ const markModified = (instance, update) => {
   }
 }
 
-const handleUpdateIndex = (index, instance) => {
+const handleUpdateIndex = (indexObj, instance) => {
   
   var instYear = dateAndTime.format(
     mongoose.Types.ObjectId(instance._id).getTimestamp(),
     'YYYY'
-  )
-
+    )
+    
   var instMonth = dateAndTime.format(
     mongoose.Types.ObjectId(instance._id).getTimestamp(),
     'MMMM'
   )
 
-  if (!index.indexDDObj.hasOwnProperty(instYear)) {
-    index.indexDDObj[instYear] = {}
-    index.hookBoolObj[instYear] = {}
-    // index.hookBoolObj['years'] = { [`${instYear}`]: false }
-    index.hookBoolObj['years'] = {}
+  if (!indexObj.indexDDObj.hasOwnProperty(instYear)) {
+    indexObj.indexDDObj[instYear] = {}
+    indexObj.hookBoolObj[instYear] = {}
+    // indexObj.hookBoolObj['years'] = { [`${instYear}`]: false }
+    indexObj.hookBoolObj['years'] = {}
+  } else {
+    if (!indexObj.indexDDObj[instYear].hasOwnProperty(instMonth)) {
+      indexObj.indexDDObj[instYear][instMonth] = []
+      indexObj.hookBoolObj[instYear][instMonth] = false
+    }
   }
-
-  if (!index.indexDDObj[instYear].hasOwnProperty(instMonth)) {
-    index.indexDDObj[instYear][instMonth] = []
-    index.hookBoolObj[instYear][instMonth] = false
-  }
-
-  var indexObj = {
+  
+  var titleIdObj = {
     _id: instance._id,
     title: instance.title
   }
 
-  index.indexDDObj[instYear][instMonth].push(indexObj)
-  index.hookBoolObj[instYear][instMonth] = false
-  index.hookBoolObj['years'][instYear] = false
+  indexObj.indexDDObj[instYear][instMonth].push(titleIdObj)
+  indexObj.hookBoolObj[instYear][instMonth] = false
+  indexObj.hookBoolObj['years'][instYear] = false
+  
+  var indexInst = new PostIndex(indexObj)
 
-  index.markModified('indexDDObj')
-  index.markModified('hookBoolObj')
+  indexInst.markModified('indexDDObj')
+  indexInst.markModified('hookBoolObj')
+
+  return indexInst
 }
 
 const handleVariants = async (variants, instance, user) => {

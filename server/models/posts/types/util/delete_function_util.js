@@ -175,7 +175,7 @@ const deletePost = async (
   ) => {
     
     return Promise.all([
-      handleUpdateIndex(post, index),
+      // handleUpdateIndex(post, index),
       handles3AndObjectCleanup(post.descriptionImages, s3Client, keys)
     ]).then(() => {
       handlePostDelete(post)
