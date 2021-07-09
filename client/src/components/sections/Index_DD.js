@@ -200,7 +200,7 @@ const IndexDD = ({
     //   )
     // }
   }
-  console.log(copy)
+
   if (indexShow && !dashboardFeed) {
     return (
       <div

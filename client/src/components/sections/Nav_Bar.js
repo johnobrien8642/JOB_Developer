@@ -11,7 +11,7 @@ const NavBar = ({
   results,
   indexData
 }) => {
-  let [indexShow, setIndexShow] = useState(false)
+  let [indexShow, setIndexShow] = useState(true)
 
   const resultsDropDown = () => {
     if (results && searchQuery) {
@@ -76,7 +76,7 @@ const NavBar = ({
         tabIndex={-1}
         onBlur={e => {
           if (e.relatedTarget === null) {
-            setIndexShow(indexShow = false)
+            // setIndexShow(indexShow = false)
           }
         }}
       >

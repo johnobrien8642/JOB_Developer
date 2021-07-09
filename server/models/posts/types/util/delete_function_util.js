@@ -37,8 +37,7 @@ const handleUpdateIndex = async (post, index) => {
     mongoose.Types.ObjectId(post._id).getTimestamp(),
     'MMMM'
   )
-
-  console.log(index)
+  
   index.updatedAt = Date.now()
   
   if 
