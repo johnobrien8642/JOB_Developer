@@ -39,10 +39,10 @@ const createOrUpdatePost = ({
   postId
 }) => {
   var update = postId ? true : false
-  
+
   var uploads = returnInstancesOnly(descriptionImages)
   var imageLinks = returnNewImageLinksOnly(descriptionImages)
-  console.log(title)
+  
   return Promise.all([
     updateUploadDispIdx(uploads, asyncUpdateUpload),
     createImagesFromLinks(imageLinks, asyncImageLink),
@@ -76,15 +76,17 @@ const createOrUpdatePost = ({
         )
     
         pushDescriptionImgObjs(readyDescriptionImgs, instance)
-
-        handleUpdateIndex(index[0], instance)
+        
+        // var obj = index[0].toObject()
+      
+        // var indexInst = handleUpdateIndex(obj, instance)
 
         if (update) {
           instance.updatedAt = Date.now()
         }
         
-        return Promise.all([instance.save(), index[0].save()]).then(
-          ([instance, index])=> (instance)
+        return Promise.all([instance.save()]).then(
+          ([instance])=> (instance)
         ) 
       })
     }

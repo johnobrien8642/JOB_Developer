@@ -32,6 +32,7 @@ const App = () => {
     <React.Fragment>
       <Switch>
         {/* <Redirect from='/' to='/dashboard' /> */}
+        <Redirect from='/blog/60e2367e16fa3c12470e36d5' to='/blog/60e7b8f8f206195b8cfca993'/>
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/blog' component={BlogFeed} />
         <Route exact path='/blog/:postId' component={SinglePostShow} />

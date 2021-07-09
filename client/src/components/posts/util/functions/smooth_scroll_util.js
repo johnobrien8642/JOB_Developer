@@ -8,7 +8,7 @@ const handleAllSmoothScrollLinksAndEls = (arrayOfNameAttrStringPrompts, post) =>
 
     if (link) {
       arrayOfListeners[i] = link.addEventListener('click', () => {
-        el.scrollIntoView({block: "center", inline: "center"})
+        el.scrollIntoView({ block: "center", inline: "center" })
       })
       arrayOfLinks[i] = link
     }
