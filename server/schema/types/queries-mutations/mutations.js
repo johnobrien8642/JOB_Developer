@@ -113,7 +113,6 @@ const mutation = new GraphQLObjectType({
               handleUpdateIndex
             )
           })
-
       }
     },
     likePost: {

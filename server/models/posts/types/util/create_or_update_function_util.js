@@ -257,7 +257,7 @@ const markModified = (instance, update) => {
   }
 }
 
-const handleUpdateIndex = (indexObj, instance) => {
+const handleUpdateIndex = (index, instance) => {
   
   var instYear = dateAndTime.format(
     mongoose.Types.ObjectId(instance._id).getTimestamp(),
@@ -269,16 +269,16 @@ const handleUpdateIndex = (indexObj, instance) => {
     'MMMM'
   )
 
-  if (!indexObj.indexDDObj.hasOwnProperty(instYear)) {
-    indexObj.indexDDObj[instYear] = {}
-    indexObj.hookBoolObj[instYear] = {}
-    // indexObj.hookBoolObj['years'] = { [`${instYear}`]: false }
-    indexObj.hookBoolObj['years'] = {}
-  } else {
-    if (!indexObj.indexDDObj[instYear].hasOwnProperty(instMonth)) {
-      indexObj.indexDDObj[instYear][instMonth] = []
-      indexObj.hookBoolObj[instYear][instMonth] = false
-    }
+  if (!index.indexDDObj.hasOwnProperty(instYear)) {
+    index.indexDDObj[instYear] = {}
+    index.hookBoolObj[instYear] = {}
+    // index.hookBoolObj['years'] = { [`${instYear}`]: false }
+    index.hookBoolObj['years'] = {}
+  }
+  
+  if (!index.indexDDObj[instYear].hasOwnProperty(instMonth)) {
+    index.indexDDObj[instYear][instMonth] = []
+    index.hookBoolObj[instYear][instMonth] = false
   }
   
   var titleIdObj = {
@@ -286,16 +286,13 @@ const handleUpdateIndex = (indexObj, instance) => {
     title: instance.title
   }
 
-  indexObj.indexDDObj[instYear][instMonth].push(titleIdObj)
-  indexObj.hookBoolObj[instYear][instMonth] = false
-  indexObj.hookBoolObj['years'][instYear] = false
-  
-  var indexInst = new PostIndex(indexObj)
+  index.indexDDObj[instYear][instMonth].push(titleIdObj)
+  index.hookBoolObj[instYear][instMonth] = false
+  index.hookBoolObj['years'][instYear] = false
 
-  indexInst.markModified('indexDDObj')
-  indexInst.markModified('hookBoolObj')
+  index.markModified('indexDDObj')
+  index.markModified('hookBoolObj')
 
-  return indexInst
 }
 
 const handleVariants = async (variants, instance, user) => {

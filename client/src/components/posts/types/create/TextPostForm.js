@@ -82,7 +82,7 @@ const TextPostForm = ({
 
         var instanceData = {
           variants: {
-            title 
+            title: title
           },
           allText: allText.current,
           descriptions: descriptions,

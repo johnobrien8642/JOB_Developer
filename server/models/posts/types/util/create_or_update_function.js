@@ -77,17 +77,15 @@ const createOrUpdatePost = ({
     
         pushDescriptionImgObjs(readyDescriptionImgs, instance)
         
-        // var obj = index[0].toObject()
+        handleUpdateIndex(index[0], instance)
       
-        // var indexInst = handleUpdateIndex(obj, instance)
-
         if (update) {
           instance.updatedAt = Date.now()
         }
         
-        return Promise.all([instance.save()]).then(
-          ([instance])=> (instance)
-        ) 
+        return Promise.all([instance.save(), index[0].save()]).then(
+          ([instance, index])=> (instance)
+        )
       })
     }
   )
