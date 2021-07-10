@@ -2,8 +2,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 const Post = mongoose.model('Post')
 
-const options = { discriminatorKey: 'kind' }
-
 const LinkPost = Post.discriminator('LinkPost', 
   new Schema({
     linkObj: {
@@ -13,6 +11,6 @@ const LinkPost = Post.discriminator('LinkPost',
       title: String,
       linkDescription: String
     }
-  }), options)
+  }))
 
   export default LinkPost;
