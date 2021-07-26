@@ -37,8 +37,12 @@ const About = ({
           className='introContainer'
         >
 
-          <h1>Hi, I'm John O'Brien.</h1>
-          <h2>I build beautiful, responsive web applications. Let's build something together.</h2>
+          <h1>I'm all about UX.</h1>
+          <h2>
+            My name is John O'Brien and I'm a Full Stack Software Programmer.
+            Memorable, easy-to-use and enjoyable UX is my main focus, and I view 
+            all software as a means to that end.
+          </h2>
 
           <div
             className='siteLinks'
@@ -90,14 +94,12 @@ const About = ({
       <div
         className='myStoryContainer'
       >
-        <h3>My story</h3>
+        <h3>A little more</h3>
         <p>
-          I'm a self-taught web developer who started their programming journey
-          at the beginning of 2020. My goal is to master the 
-          development process, delivering beautiful, enjoyable UX/UI while also 
-          engineering fast, efficient and powerful solutions on the backend. I'm 
-          a lifelong problem solver who gets immense satisfaction breaking down 
-          complex problems.
+          I learned how to program because I had my own ideas for projects 
+          that I wanted to see built. What I enjoy the most is the final product,
+          the actual experience of using the application. Creating fast, maintainable
+          code is the best way to achieve that.
         </p>
       </div>
       <svg className="aboutTriangle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
