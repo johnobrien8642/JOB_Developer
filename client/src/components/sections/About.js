@@ -37,11 +37,11 @@ const About = ({
           className='introContainer'
         >
 
-          <h1>I'm all about UX.</h1>
+          <h1>Hi there.</h1>
           <h2>
-            My name is John O'Brien and I'm a Full Stack Software Programmer.
-            Memorable, easy-to-use and enjoyable UX is my main focus, and I view 
-            all software as a means to that end.
+            My name is John O'Brien and I'm a Full-Stack Web Developer.
+            Memorable, easy-to-use, and enjoyable UX/UI is my main focus. I view 
+            all software languages as tools to achieve that end.
           </h2>
 
           <div
@@ -98,8 +98,8 @@ const About = ({
         <p>
           I learned how to program because I had my own ideas for projects 
           that I wanted to see built. What I enjoy the most is the final product,
-          the actual experience of using the application. Creating fast, maintainable
-          code is the best way to achieve that.
+          the actual experience of using the application. I believe writing fast, 
+          efficient, and maintainable code is the best way to achieve that.
         </p>
       </div>
       <svg className="aboutTriangle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
