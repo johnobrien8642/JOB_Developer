@@ -1,6 +1,8 @@
 import React from 'react';
 import Scroll from 'react-scroll';
 import statics from '../../util/statics.js';
+import { Flex } from '@chakra-ui/react'
+import ProjectCell from './Project_Cell.js';
 
 const Element = Scroll.Element;
 <Element name='projectsScrollEl' />
@@ -14,61 +16,38 @@ const Projects = () => {
       <Element name='projectsScrollEl' />
       <h1>Projects</h1>
 
-      <div
+      <Flex
         className='projectsTable'
+        flexWrap='wrap'
       >
-        <div
-          className='projectCell'
-        >
-          <h2>Rumblr</h2>
-          <a
-            href='https://rumblr.app'
-          >
-            <img
-              className='thumbnail'
-              alt='rumblr project thumbnail screenshot'
-              src={statics.rumblrScreenshotThumbnail}
-            />
-          </a>
-          <p>
-            My first clone and first full stack project! In this project
-            I attempted to clone as many features of Tumblr as I could.
-            I also attempted to make my clone of Tumblr look and function
-            as close as possible to the actual website.
-          </p>
-          <a
-            className='githubRepoLink'
-            href='https://github.com/johnobrien8642/RUMBLR_PROD'
-          >
-            Github repository
-          </a>
-        </div>
-        <div
-          className='projectCell'
-        >
-          <h2>Eight Queens Puzzle Solutions</h2>
-          <a
-            href='https://eight-queens-app-bk3o4.ondigitalocean.app'
-          >
-            <img
-              className='thumbnail'
-              alt='rumblr project thumbnail screenshot'
-              src={statics.eightQueensThumbnail}
-            />
-          </a>
-          <p>
-            A simple app that returns random solutions to
-            the Eight Queens Puzzle. I used OOP, Rails
-            with React, Bootstrap and Sass.
-          </p>
-          <a
-            className='githubRepoLink'
-            href='https://github.com/johnobrien8642/RUMBLR_PROD'
-          >
-            Github repository
-          </a>
-        </div>
-      </div>
+        <ProjectCell
+          title='Rumblr'
+          href='https://rumblr.app'
+          thumbnailSrc={statics.rumblrScreenshotThumbnail}
+          description='A full-featured, fully functional clone of Tumblr. A Create React App,
+          this clone has over 90+ features, including Social Media support such as
+          User and Tag follows, Post likes, and many more!'
+          githubLink='https://github.com/johnobrien8642/RUMBLR_PROD'
+        />
+        <ProjectCell
+          title='Writing and Photo Website Demo'
+          href='https://personal-site-demo-xi.vercel.app/'
+          thumbnailSrc={statics.personalSiteThumbnail}
+          description='A full-featured Writing and Photography website with admin support. Upload photos,
+          writing pieces with chaptered sections, and manage the database directly through
+          an admin-accessible Repl window.'
+          githubLink='https://github.com/johnobrien8642/personal-site/tree/portfolio'
+        />
+        <ProjectCell
+          title='API Demo'
+          href='https://mui-ts-react-example.vercel.app/'
+          thumbnailSrc={statics.coolCatDemoThumbnail}
+          description='A website utilizing the thecatapi.com and displaying a random selection of
+          cool cats. In this website you can favorite cat pictures and watch them get uploaded
+          to the Favorites feed in real time, and increase the favorites count!'
+          githubLink='https://github.com/johnobrien8642/mui-ts-react-example/tree/cat-refactor'
+        />
+      </Flex>
     </section>
   )
 }

@@ -25,7 +25,7 @@ const Links = () => {
         </a>
         <a
           className='linkedinLink'
-          href='https://www.linkedin.com/in/john-o-brien-4101b2151/'
+          href='https://www.linkedin.com/in/john-o-brien-33b4a4250/'
         >
           <img
             alt='linkedin logo'

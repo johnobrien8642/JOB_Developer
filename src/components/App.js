@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Switch, Redirect, Route } from 'react-router-dom';
+import { ChakraProvider, useTheme } from '@chakra-ui/react';
+import theme from '@chakra-ui/theme'
 
 import LandingPage from './sections/Landing_Page';
 
@@ -8,7 +9,7 @@ import LandingPage from './sections/Landing_Page';
 import './../stylesheets/application.scss';
 
 const App = () => {
-
+  console.log(theme)
   useEffect(() => {
     var listener = window.addEventListener('scroll', () => {
       document.querySelector('body').style.setProperty('--scroll-y',
@@ -21,11 +22,9 @@ const App = () => {
   })
 
   return (
-    <React.Fragment>
-      <Switch>
-        <Route exact path='/' component={LandingPage} />
-      </Switch>
-    </React.Fragment>
+    <ChakraProvider theme={theme}>
+      <LandingPage />
+    </ChakraProvider>
   );
 }
 
