@@ -9,7 +9,7 @@ import LandingPage from './sections/Landing_Page';
 import './../stylesheets/application.scss';
 
 const App = () => {
-  console.log(theme)
+
   useEffect(() => {
     var listener = window.addEventListener('scroll', () => {
       document.querySelector('body').style.setProperty('--scroll-y',

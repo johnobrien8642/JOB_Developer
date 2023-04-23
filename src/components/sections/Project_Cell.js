@@ -12,6 +12,7 @@ const ProjectCell = ({
 	return (
 		<Card
 			maxWidth={['100%', '45%']}
+			minHeight='500px'
 			margin='1rem'
 			boxShadow='var(--chakra-shadows-xl)'
 		>
@@ -40,7 +41,7 @@ const ProjectCell = ({
 				{description}
 			</Text>
 			<Link
-				m='1rem auto'
+				m='auto auto 1rem auto'
 				className='githubRepoLink'
 				href={githubLink}
 			>
