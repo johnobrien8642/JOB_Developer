@@ -25,12 +25,13 @@
 
 html {
   overflow-x: hidden;
+  background-color: var(--chakra-colors-gray-50);
 }
 
 body {
-  background-color: white;
+  background: transparent !important;
   font-family: 'Heebo', sans-serif;
-  
+
   .page {
     width: 900px;
     margin: 0 auto;

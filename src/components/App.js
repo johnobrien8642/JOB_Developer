@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import { ChakraProvider, useTheme } from '@chakra-ui/react';
-import theme from '@chakra-ui/theme'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
 import LandingPage from './sections/Landing_Page';
 
@@ -9,7 +8,15 @@ import LandingPage from './sections/Landing_Page';
 import './../stylesheets/application.scss';
 
 const App = () => {
-
+const theme = extendTheme({
+  semanticTokens: {
+    colors: {
+      body: {
+        bg: 'gray.50'
+      }
+    }
+  }
+})
   useEffect(() => {
     var listener = window.addEventListener('scroll', () => {
       document.querySelector('body').style.setProperty('--scroll-y',
