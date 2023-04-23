@@ -49,7 +49,7 @@ const About = ({
           </Text>
           <Box
             className='siteLinks'
-            mt='10%'
+            m='1rem auto'
           >
             <span
               onClick={() => {

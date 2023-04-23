@@ -19,6 +19,8 @@ const Projects = () => {
       <Flex
         className='projectsTable'
         flexWrap='wrap'
+        justifyContent='center'
+        alignItems='center'
       >
         <ProjectCell
           title='Rumblr'

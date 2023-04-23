@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Link, Box, Text, Card, CardHeader } from '@chakra-ui/react'
+import { Button, Link, Text, Card } from '@chakra-ui/react'
 
 const ProjectCell = ({
 	title,
@@ -11,8 +11,8 @@ const ProjectCell = ({
 
 	return (
 		<Card
-			maxWidth='425px'
-			margin='1rem auto'
+			maxWidth={['100%', '45%']}
+			margin='1rem'
 			boxShadow='var(--chakra-shadows-xl)'
 		>
 			<Text
