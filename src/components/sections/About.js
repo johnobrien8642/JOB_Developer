@@ -39,13 +39,13 @@ const About = ({
           mt='5%'
           rowGap='5%'
         >
-          <Text as='h1'>Hi!</Text>
+          <Text as='h1'>Hi</Text>
           <Text lineHeight='1.5rem' textAlign='center' maxWidth='90%' m='0 auto'>
-            My name is John O'Brien and I'm a Full-Stack React Web Developer.
-            I love creating amazing projects that look great and are efficient,
-            maintainable, and scalable. I enjoy everything about the tech stack,
-            from finding the perfect responsive CSS declarations all the way to optimizing
-            database indexing. Let's build something amazing together!
+            My name is John O'Brien, it's nice to meet you. Welcome to my little
+            portfolio website. This is just a place for me to host a couple of links
+            for stuff I've worked on, and work I've done. If you scroll down you can
+            start checking them out, or you can click these links just below and it'll
+            cleverly take you there autonomously!
           </Text>
           <Box
             className='siteLinks'
@@ -89,11 +89,10 @@ const About = ({
       <Box maxWidth='90%' m='1rem auto'>
         <Text as='h2' fontSize='2rem' fontWeight='600'>A little more</Text>
         <p>
-          Some programmers fall into one of two categorical camps, the frontend or the backend.
-          I truly enjoy everything, from HTML, CSS (and the latest and greatest innovations there),
-          to animations, all the way down to API creation and database architecture. My primary
-          database expertise is with Mongodb, but I also have experience with SQL, and would look
-          forward to working with it just as much for the right opportunity.
+          My passion for coding started a little over three years ago. I was looking
+          for a career change and decided to give coding a try, just to see if I'd like it.
+          Three years later and I'm happy to say that I've already come a long way in my coding
+          journey, but I'm still looking forward to what the future holds.
         </p>
       </Box>
       <svg className="aboutTriangle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
