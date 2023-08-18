@@ -41,7 +41,7 @@ const About = ({
         >
           <Text as='h1'>Hi</Text>
           <Text lineHeight='1.5rem' textAlign='center' maxWidth='90%' m='0 auto'>
-            My name is John O'Brien, it's nice to meet you. Welcome to my little
+            My name is John O'Brien, it's nice to meet you. Welcome to my
             portfolio website. This is just a place for me to host a couple of links
             for stuff I've worked on, and work I've done. If you scroll down you can
             start checking them out, or you can click these links just below and it'll
