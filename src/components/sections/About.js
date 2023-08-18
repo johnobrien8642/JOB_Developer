@@ -24,14 +24,6 @@ const About = ({
             alt='main portfolio pic'
             src={statics.mainProPic}
           />
-
-          <div
-            className='pictureBanner'
-          >
-            <span>UI/UX</span>
-            <span>Frontend</span>
-            <span>Backend</span>
-          </div>
         </div>
 
         <Box
