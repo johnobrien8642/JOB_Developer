@@ -24,7 +24,7 @@ const Projects = () => {
       >
         <ProjectCell
           title='Rumblr'
-          href='https://rumblr.app'
+          href='https://rumblr-prod-2-lbfdj.ondigitalocean.app/login'
           thumbnailSrc={statics.rumblrScreenshotThumbnail}
           description='A full-featured, fully functional clone of Tumblr. A Create React App,
           this clone has over 90+ features, including Social Media support such as
